@@ -1,1 +1,1 @@
-A .NET MAUI-based mobile academic planner app that allows students to track their academic terms, courses associated with each term, and assessments associated with each course.
+.NET MAUI-based mobile academic planner app that allows students to track their academic terms, courses associated with each term, and assessments associated with each course.

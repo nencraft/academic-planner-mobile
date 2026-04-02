@@ -2,9 +2,184 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AcademicPlanner.Views.TermEditPage"
-             Title="Add/Edit Term">
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#EFEFEF">
 
-    <VerticalStackLayout Padding="20">
-        <Label Text="Add/Edit Term Page Placeholder" />
-    </VerticalStackLayout>
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- Top icon row -->
+        <Grid Grid.Row="0"
+              Padding="16,12,16,8"
+              ColumnDefinitions="60,*,60"
+              BackgroundColor="White">
+
+            <Button Grid.Column="0"
+                    Text="←"
+                    FontSize="44"
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                    BackgroundColor="Transparent"
+                    Padding="0"
+                    Clicked="OnBackClicked" />
+
+            <Image Grid.Column="1"
+                   Source="wgu_owl.png"
+                   HeightRequest="60"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+
+            <Button Grid.Column="2"
+                    Text="+"
+                    FontSize="48"
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                    BackgroundColor="Transparent"
+                    Padding="0"
+                    Clicked="OnAddNewClicked" />
+        </Grid>
+
+        <!-- Blue title bar -->
+        <Border Grid.Row="1"
+                BackgroundColor="#4E617C"
+                StrokeThickness="0"
+                Padding="0,10">
+            <Label Text="Add/Edit Term"
+                   TextColor="White"
+                   FontSize="22"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Border>
+
+        <!-- Form -->
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout Padding="28,70,28,40"
+                                 Spacing="26">
+
+                <Grid ColumnDefinitions="Auto,*"
+                      ColumnSpacing="12"
+                      RowDefinitions="Auto,Auto,Auto">
+
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Text="Term Title:"
+                           FontSize="20"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="End" />
+
+                    <Border Grid.Row="0"
+                            Grid.Column="1"
+                            Stroke="Black"
+                            StrokeThickness="1"
+                            BackgroundColor="#F5F5F5"
+                            HeightRequest="54">
+                        <Entry x:Name="TitleEntry"
+                               Placeholder="Text box"
+                               FontSize="18"
+                               BackgroundColor="Transparent"
+                               ClearButtonVisibility="WhileEditing" />
+                    </Border>
+
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Text="StartDate:"
+                           FontSize="20"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="End" />
+
+                    <Border Grid.Row="1"
+                            Grid.Column="1"
+                            Stroke="Black"
+                            StrokeThickness="1"
+                            BackgroundColor="#F5F5F5"
+                            HeightRequest="54">
+                        <Grid ColumnDefinitions="*,Auto"
+                              Padding="8,0">
+                            <DatePicker x:Name="StartDatePicker"
+                                        Grid.Column="0"
+                                        FontSize="18"
+                                        Format="MM/dd/yyyy"
+                                        BackgroundColor="Transparent"
+                                        VerticalOptions="Center" />
+                            <Label Grid.Column="1"
+                                   Text="📅"
+                                   FontSize="22"
+                                   VerticalTextAlignment="Center"
+                                   Margin="8,0,4,0" />
+                        </Grid>
+                    </Border>
+
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Text="EndDate:"
+                           FontSize="20"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="End" />
+
+                    <Border Grid.Row="2"
+                            Grid.Column="1"
+                            Stroke="Black"
+                            StrokeThickness="1"
+                            BackgroundColor="#F5F5F5"
+                            HeightRequest="54">
+                        <Grid ColumnDefinitions="*,Auto"
+                              Padding="8,0">
+                            <DatePicker x:Name="EndDatePicker"
+                                        Grid.Column="0"
+                                        FontSize="18"
+                                        Format="MM/dd/yyyy"
+                                        BackgroundColor="Transparent"
+                                        VerticalOptions="Center" />
+                            <Label Grid.Column="1"
+                                   Text="📅"
+                                   FontSize="22"
+                                   VerticalTextAlignment="Center"
+                                   Margin="8,0,4,0" />
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <Grid ColumnDefinitions="*,*"
+                      ColumnSpacing="20"
+                      Margin="0,24,0,0">
+
+                    <Button Grid.Column="0"
+                            Text="💾  Save Term"
+                            FontSize="18"
+                            HeightRequest="62"
+                            CornerRadius="16"
+                            BackgroundColor="#F5F5F5"
+                            TextColor="Black"
+                            BorderColor="Black"
+                            BorderWidth="1"
+                            Clicked="OnSaveClicked" />
+
+                    <Button Grid.Column="1"
+                            Text="⊗  Cancel"
+                            FontSize="18"
+                            HeightRequest="62"
+                            CornerRadius="16"
+                            BackgroundColor="#F5F5F5"
+                            TextColor="Black"
+                            BorderColor="Black"
+                            BorderWidth="1"
+                            Clicked="OnCancelClicked" />
+                </Grid>
+
+                <Button x:Name="DeleteButton"
+                        Text="🗑  Delete Term"
+                        FontSize="18"
+                        HeightRequest="62"
+                        WidthRequest="240"
+                        CornerRadius="16"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="Black"
+                        BorderColor="Black"
+                        BorderWidth="1"
+                        HorizontalOptions="Center"
+                        IsVisible="False"
+                        Clicked="OnDeleteClicked" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

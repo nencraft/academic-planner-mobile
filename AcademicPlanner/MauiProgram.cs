@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AcademicPlanner.Data;
+using AcademicPlanner.Views;
+using Microsoft.Extensions.Logging;
 
 namespace AcademicPlanner;
 
@@ -19,6 +21,9 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
-		return builder.Build();
+        builder.Services.AddSingleton<AcademicPlannerDatabase>();
+        builder.Services.AddTransient<TermsPage>();
+        builder.Services.AddTransient<TermEditPage>();
+        return builder.Build();
 	}
 }

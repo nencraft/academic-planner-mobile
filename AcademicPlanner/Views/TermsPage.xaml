@@ -1,10 +1,149 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:AcademicPlanner.Models"
              x:Class="AcademicPlanner.Views.TermsPage"
-             Title="WGU Academic Planner">
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#EFEFEF">
 
-    <VerticalStackLayout Padding="20">
-        <Label Text="WGU Academic Planner" />
-    </VerticalStackLayout>
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- Top icon row -->
+        <Grid Grid.Row="0"
+              Padding="16,12,16,8"
+              ColumnDefinitions="60,*,60"
+              BackgroundColor="White">
+
+            <Button Grid.Column="0"
+                    Text="←"
+                    FontSize="44"
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                    BackgroundColor="Transparent"
+                    Padding="0"
+                    Clicked="OnBackClicked" />
+
+            <Image Grid.Column="1"
+                   Source="wgu_owl.png"
+                   HeightRequest="60"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+
+            <Button Grid.Column="2"
+                    Text="+"
+                    FontSize="48"
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                    BackgroundColor="Transparent"
+                    Padding="0"
+                    Clicked="OnAddTermClicked" />
+        </Grid>
+
+        <Border Grid.Row="1"
+                BackgroundColor="#002f51"
+                StrokeThickness="0"
+                Padding="0,10">
+            <Label Text="WGU Academic Planner"
+                   TextColor="White"
+                   FontSize="22"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Border>
+
+        <CollectionView Grid.Row="2"
+                        x:Name="TermsCollectionView"
+                        Margin="0,24,0,0"
+                        SelectionMode="None">
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout Padding="24,32"
+                                     Spacing="12">
+                    <Label Text="No terms yet"
+                           FontSize="24"
+                           HorizontalOptions="Center" />
+                    <Label Text="Tap the plus icon to add your first term."
+                           FontSize="16"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Term">
+                    <Grid Padding="0,16">
+                        <Border StrokeThickness="0"
+                                BackgroundColor="#F5F5F5"
+                                Shadow="{OnPlatform Android='0,4,10,0,#33000000'}"
+                                HorizontalOptions="Center"
+                                WidthRequest="480"
+                                Padding="18">
+
+                            <Grid ColumnDefinitions="*,70"
+                                  VerticalOptions="Center">
+
+                                <VerticalStackLayout Grid.Column="0"
+                                                     Spacing="6"
+                                                     HorizontalOptions="Center"
+                                                     VerticalOptions="Center">
+                                    <Label Text="{Binding Title}"
+                                           FontSize="28"
+                                           FontAttributes="Bold"
+                                           HorizontalTextAlignment="Center"
+                                           TextColor="Black" />             
+
+                                    <Label FontSize="16"
+                                           HorizontalTextAlignment="Center"
+                                           TextColor="Black">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding StartDate, StringFormat='{0:MM/dd/yyyy}'}" />
+                                                <Span Text=" - " />
+                                                <Span Text="{Binding EndDate, StringFormat='{0:MM/dd/yyyy}'}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </VerticalStackLayout>
+
+                                <Grid Grid.Column="1"
+                                      WidthRequest="56"
+                                      HeightRequest="56"
+                                      HorizontalOptions="Center"
+                                      VerticalOptions="Center">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Tapped="OnTermSelectedTapped"
+                                            CommandParameter="{Binding Id}" />
+                                    </Grid.GestureRecognizers>
+
+                                    <Border Stroke="Black"
+                                            StrokeThickness="2"
+                                            BackgroundColor="Transparent"
+                                            WidthRequest="56"
+                                            HeightRequest="56"
+                                            StrokeShape="RoundRectangle 28"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center" 
+                                            TranslationX="-15"
+                                            TranslationY="5"/>
+
+                                    <Label Text="❯"
+                                           FontSize="28"
+                                           FontAttributes="Bold"
+                                           TextColor="Black"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           HorizontalTextAlignment="Center"
+                                           VerticalTextAlignment="Center"
+                                           TranslationX="-13"
+                                           TranslationY="2" 
+                                           />
+                                </Grid>
+
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
 </ContentPage>

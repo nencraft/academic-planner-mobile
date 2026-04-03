@@ -29,15 +29,9 @@ public partial class TermsPage : ContentPage
         await Shell.Current.GoToAsync(nameof(TermEditPage));
     }
 
-    private async void OnTermSelectedTapped(object? sender, TappedEventArgs e)
+    private async void OnTermSelectedClicked(object? sender, EventArgs e)
     {
-        if (sender is not Grid grid)
-            return;
-
-        if (grid.GestureRecognizers.FirstOrDefault() is not TapGestureRecognizer tap)
-            return;
-
-        if (tap.CommandParameter is not int termId)
+        if (sender is not ImageButton button || button.CommandParameter is not int termId)
             return;
 
         await Shell.Current.GoToAsync($"{nameof(TermOverviewPage)}?termId={termId}");
@@ -45,7 +39,6 @@ public partial class TermsPage : ContentPage
 
     private async void OnBackClicked(object? sender, EventArgs e)
     {
-
         await Task.CompletedTask;
     }
 }

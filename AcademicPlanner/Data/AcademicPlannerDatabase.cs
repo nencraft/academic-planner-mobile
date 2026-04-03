@@ -27,10 +27,12 @@ namespace AcademicPlanner.Data
                 SQLiteOpenFlags.SharedCache);
 
             await _database.CreateTableAsync<Term>();
+            await _database.CreateTableAsync<Course>();
 
             _initialized = true;
         }
 
+        // Terms
         public async Task<List<Term>> GetTermsAsync()
         {
             await InitAsync();
@@ -62,6 +64,52 @@ namespace AcademicPlanner.Data
         {
             await InitAsync();
             return await _database!.DeleteAsync(term);
+        }
+
+        public async Task DeleteTermCascadeAsync(int termId)
+        {
+            await InitAsync();
+
+            var courses = await GetCoursesByTermAsync(termId);
+            foreach (var course in courses)
+            {
+                await _database!.DeleteAsync(course);
+            }
+
+            var term = await GetTermAsync(termId);
+            if (term is not null)
+            {
+                await _database!.DeleteAsync(term);
+            }
+        }
+
+        // Courses
+        public async Task<int> SaveCourseAsync(Course course)
+        {
+            await InitAsync();
+
+            if (course.Id != 0)
+                return await _database!.UpdateAsync(course);
+
+            return await _database!.InsertAsync(course);
+        }
+
+        public async Task<List<Course>> GetCoursesByTermAsync(int termId)
+        {
+            await InitAsync();
+            return await _database!
+                .Table<Course>()
+                .Where(c => c.TermId == termId)
+                .OrderBy(c => c.StartDate)
+                .ToListAsync();
+        }
+
+        public async Task<Course?> GetCourseAsync(int id)
+        {
+            await InitAsync();
+            return await _database!
+                .Table<Course>()
+                .FirstOrDefaultAsync(c => c.Id == id);
         }
     }
 }

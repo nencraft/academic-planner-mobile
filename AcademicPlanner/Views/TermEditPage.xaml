@@ -13,14 +13,14 @@
               ColumnDefinitions="60,*,60"
               BackgroundColor="White">
 
-            <Button Grid.Column="0"
-                    Text="←"
-                    FontSize="44"
-                    FontAttributes="Bold"
-                    TextColor="Black"
-                    BackgroundColor="Transparent"
-                    Padding="0"
-                    Clicked="OnBackClicked" />
+            <ImageButton Source="icon_back.png"
+             BackgroundColor="Transparent"
+             WidthRequest="46"
+             HeightRequest="46"
+             Aspect="AspectFit"
+             HorizontalOptions="Start"
+             VerticalOptions="Center"
+             Clicked="OnBackClicked" />
 
             <Image Grid.Column="1"
                    Source="wgu_owl.png"
@@ -28,19 +28,11 @@
                    HorizontalOptions="Center"
                    VerticalOptions="Center" />
 
-            <Button Grid.Column="2"
-                    Text="+"
-                    FontSize="48"
-                    FontAttributes="Bold"
-                    TextColor="Black"
-                    BackgroundColor="Transparent"
-                    Padding="0"
-                    Clicked="OnAddNewClicked" />
         </Grid>
 
         <!-- Blue title bar -->
         <Border Grid.Row="1"
-                BackgroundColor="#4E617C"
+                BackgroundColor="#002f51"
                 StrokeThickness="0"
                 Padding="0,10">
             <Label Text="Add/Edit Term"
@@ -143,41 +135,44 @@
                       Margin="0,24,0,0">
 
                     <Button Grid.Column="0"
-                            Text="💾  Save Term"
-                            FontSize="18"
-                            HeightRequest="62"
-                            CornerRadius="16"
-                            BackgroundColor="#F5F5F5"
-                            TextColor="Black"
-                            BorderColor="Black"
-                            BorderWidth="1"
-                            Clicked="OnSaveClicked" />
-
-                    <Button Grid.Column="1"
-                            Text="⊗  Cancel"
-                            FontSize="18"
-                            HeightRequest="62"
-                            CornerRadius="16"
-                            BackgroundColor="#F5F5F5"
-                            TextColor="Black"
-                            BorderColor="Black"
-                            BorderWidth="1"
-                            Clicked="OnCancelClicked" />
-                </Grid>
-
-                <Button x:Name="DeleteButton"
-                        Text="🗑  Delete Term"
+                        Text="Save Term"
+                        ImageSource="icon_save.png"
                         FontSize="18"
                         HeightRequest="62"
-                        WidthRequest="240"
                         CornerRadius="16"
                         BackgroundColor="#F5F5F5"
                         TextColor="Black"
                         BorderColor="Black"
                         BorderWidth="1"
-                        HorizontalOptions="Center"
-                        IsVisible="False"
-                        Clicked="OnDeleteClicked" />
+                        Clicked="OnSaveClicked" />
+
+                    <Button Grid.Column="1"
+                        Text="Cancel"
+                        ImageSource="icon_cancel.png"
+                        FontSize="18"
+                        HeightRequest="62"
+                        CornerRadius="16"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="Black"
+                        BorderColor="Black"
+                        BorderWidth="1"
+                        Clicked="OnCancelClicked" />
+                </Grid>
+
+                <Button x:Name="DeleteButton"
+                    Text="Delete Term"
+                    ImageSource="icon_delete.png"
+                    FontSize="18"
+                    HeightRequest="62"
+                    WidthRequest="240"
+                    CornerRadius="16"
+                    BackgroundColor="#F5F5F5"
+                    TextColor="Black"
+                    BorderColor="Black"
+                    BorderWidth="1"
+                    HorizontalOptions="Center"
+                    IsVisible="True"
+                    Clicked="OnDeleteClicked" />
 
             </VerticalStackLayout>
         </ScrollView>

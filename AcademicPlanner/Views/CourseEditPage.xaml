@@ -2,9 +2,151 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AcademicPlanner.Views.CourseEditPage"
-             Title="Add/Edit Course">
-    
-    <VerticalStackLayout Padding="20">
-        <Label Text="Add/Edit Course Page Placeholder" />
-    </VerticalStackLayout>
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#EFEFEF">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <Grid Grid.Row="0"
+              Padding="16,12,16,8"
+              ColumnDefinitions="56,*,56"
+              ColumnSpacing="16"
+              BackgroundColor="White">
+
+            <ImageButton Grid.Column="0"
+                         Source="icon_back.png"
+                         BackgroundColor="Transparent"
+                         WidthRequest="48"
+                         HeightRequest="48"
+                         Padding="0"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         Aspect="AspectFit"
+                         Clicked="OnBackClicked" />
+
+            <Image Grid.Column="1"
+                   Source="wgu_owl.png"
+                   HeightRequest="56"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Aspect="AspectFit" />
+
+
+        </Grid>
+
+        <Border Grid.Row="1"
+                BackgroundColor="#002f51"
+                StrokeThickness="0"
+                Padding="0,10">
+            <Label Text="Add/Edit Course"
+                   TextColor="White"
+                   FontSize="22"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Border>
+
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout Padding="28,50,28,40"
+                                 Spacing="24">
+
+                <Grid ColumnDefinitions="Auto,*"
+                      ColumnSpacing="12"
+                      RowDefinitions="Auto,Auto,Auto">
+
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Text="Course Title:"
+                           FontSize="20"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="End" />
+
+                    <Border Grid.Row="0"
+                            Grid.Column="1"
+                            Stroke="Black"
+                            StrokeThickness="1"
+                            BackgroundColor="#F5F5F5"
+                            HeightRequest="54">
+                        <Entry x:Name="TitleEntry"
+                               Placeholder="Text box"
+                               FontSize="18"
+                               BackgroundColor="Transparent"
+                               ClearButtonVisibility="WhileEditing" />
+                    </Border>
+
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Text="StartDate:"
+                           FontSize="20"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="End" />
+
+                    <Border Grid.Row="1"
+                            Grid.Column="1"
+                            Stroke="Black"
+                            StrokeThickness="1"
+                            BackgroundColor="#F5F5F5"
+                            HeightRequest="54">
+                        <DatePicker x:Name="StartDatePicker"
+                                    FontSize="18"
+                                    Format="MM/dd/yyyy"
+                                    BackgroundColor="Transparent" />
+                    </Border>
+
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Text="EndDate:"
+                           FontSize="20"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="End" />
+
+                    <Border Grid.Row="2"
+                            Grid.Column="1"
+                            Stroke="Black"
+                            StrokeThickness="1"
+                            BackgroundColor="#F5F5F5"
+                            HeightRequest="54">
+                        <DatePicker x:Name="EndDatePicker"
+                                    FontSize="18"
+                                    Format="MM/dd/yyyy"
+                                    BackgroundColor="Transparent" />
+                    </Border>
+                </Grid>
+
+                <Grid ColumnDefinitions="*,*"
+                      ColumnSpacing="16"
+                      Margin="0,24,0,0"
+                      HorizontalOptions="Fill">
+
+                    <Button Grid.Column="0"
+                            Text="Save Course"
+                            ImageSource="icon_save.png"
+                            FontSize="16"
+                            HeightRequest="58"
+                            CornerRadius="16"
+                            BackgroundColor="#F5F5F5"
+                            TextColor="Black"
+                            BorderColor="Black"
+                            BorderWidth="1"
+                            Padding="12,0"
+                            HorizontalOptions="Fill"
+                            Clicked="OnSaveClicked" />
+
+                    <Button Grid.Column="1"
+                            Text="Cancel"
+                            ImageSource="icon_cancel.png"
+                            FontSize="16"
+                            HeightRequest="58"
+                            CornerRadius="16"
+                            BackgroundColor="#F5F5F5"
+                            TextColor="Black"
+                            BorderColor="Black"
+                            BorderWidth="1"
+                            Padding="12,0"
+                            HorizontalOptions="Fill"
+                            Clicked="OnCancelClicked" />
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

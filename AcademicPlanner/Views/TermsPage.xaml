@@ -8,35 +8,29 @@
 
     <Grid RowDefinitions="Auto,Auto,*">
 
-        <!-- Top icon row -->
-        <Grid Grid.Row="0"
-              Padding="16,12,16,8"
-              ColumnDefinitions="60,*,60"
-              BackgroundColor="White">
-
-            <Button Grid.Column="0"
-                    Text="←"
-                    FontSize="44"
-                    FontAttributes="Bold"
-                    TextColor="Black"
-                    BackgroundColor="Transparent"
-                    Padding="0"
-                    Clicked="OnBackClicked" />
+        <Grid Padding="16,12,16,8"
+      ColumnDefinitions="56,*,56"
+      ColumnSpacing="16"
+      BackgroundColor="White">
 
             <Image Grid.Column="1"
-                   Source="wgu_owl.png"
-                   HeightRequest="60"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center" />
+           Source="wgu_owl.png"
+           HeightRequest="56"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"
+           Aspect="AspectFit" />
 
-            <Button Grid.Column="2"
-                    Text="+"
-                    FontSize="48"
-                    FontAttributes="Bold"
-                    TextColor="Black"
-                    BackgroundColor="Transparent"
-                    Padding="0"
-                    Clicked="OnAddTermClicked" />
+            <ImageButton Grid.Column="2"
+                 Source="icon_add.png"
+                 BackgroundColor="Transparent"
+                 WidthRequest="48"
+                 HeightRequest="48"
+                 Padding="0"
+                 Margin="0"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center"
+                 Aspect="AspectFit"
+                 Clicked="OnAddTermClicked" />
         </Grid>
 
         <Border Grid.Row="1"
@@ -88,7 +82,7 @@
                                            FontSize="28"
                                            FontAttributes="Bold"
                                            HorizontalTextAlignment="Center"
-                                           TextColor="Black" />             
+                                           TextColor="Black" />
 
                                     <Label FontSize="16"
                                            HorizontalTextAlignment="Center"
@@ -103,40 +97,17 @@
                                     </Label>
                                 </VerticalStackLayout>
 
-                                <Grid Grid.Column="1"
-                                      WidthRequest="56"
-                                      HeightRequest="56"
-                                      HorizontalOptions="Center"
-                                      VerticalOptions="Center">
-                                    <Grid.GestureRecognizers>
-                                        <TapGestureRecognizer
-                                            Tapped="OnTermSelectedTapped"
-                                            CommandParameter="{Binding Id}" />
-                                    </Grid.GestureRecognizers>
-
-                                    <Border Stroke="Black"
-                                            StrokeThickness="2"
-                                            BackgroundColor="Transparent"
-                                            WidthRequest="56"
-                                            HeightRequest="56"
-                                            StrokeShape="RoundRectangle 28"
-                                            HorizontalOptions="Center"
-                                            VerticalOptions="Center" 
-                                            TranslationX="-15"
-                                            TranslationY="5"/>
-
-                                    <Label Text="❯"
-                                           FontSize="28"
-                                           FontAttributes="Bold"
-                                           TextColor="Black"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"
-                                           HorizontalTextAlignment="Center"
-                                           VerticalTextAlignment="Center"
-                                           TranslationX="-13"
-                                           TranslationY="2" 
-                                           />
-                                </Grid>
+                                <ImageButton Grid.Column="1"
+                                     Source="icon_expand.png"
+                                     BackgroundColor="Transparent"
+                                     WidthRequest="56"
+                                     HeightRequest="56"
+                                     Aspect="AspectFit"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     CommandParameter="{Binding Id}"
+                                     TranslationX="-15"
+                                     Clicked="OnTermSelectedClicked" />
 
                             </Grid>
                         </Border>

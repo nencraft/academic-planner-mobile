@@ -2,9 +2,97 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AcademicPlanner.Views.CourseOverviewPage"
-             Title="Course Overview">
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#EFEFEF">
 
-    <VerticalStackLayout Padding="20">
-        <Label Text="Course Overview Page Placeholder" />
-    </VerticalStackLayout>
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <Grid Grid.Row="0"
+              Padding="16,12,16,8"
+              ColumnDefinitions="56,*,56"
+              ColumnSpacing="16"
+              BackgroundColor="White">
+
+            <ImageButton Grid.Column="0"
+                         Source="icon_back.png"
+                         BackgroundColor="Transparent"
+                         WidthRequest="48"
+                         HeightRequest="48"
+                         Padding="0"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         Aspect="AspectFit"
+                         Clicked="OnBackClicked" />
+
+            <Image Grid.Column="1"
+                   Source="wgu_owl.png"
+                   HeightRequest="56"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Aspect="AspectFit" />
+
+            <ImageButton Grid.Column="2"
+                         Source="icon_bell_inactive.png"
+                         BackgroundColor="Transparent"
+                         WidthRequest="48"
+                         HeightRequest="48"
+                         Padding="0"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         Aspect="AspectFit"
+                         Clicked="OnAlertClicked" />
+        </Grid>
+
+        <Border Grid.Row="1"
+                BackgroundColor="#002f51"
+                StrokeThickness="0"
+                Padding="0,10">
+            <Label Text="Course Overview"
+                   TextColor="White"
+                   FontSize="22"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Border>
+
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout Padding="24" Spacing="14">
+                <Label x:Name="CourseTitleLabel" FontSize="24" FontAttributes="Bold" />
+                <Label x:Name="CourseStatusLabel" FontSize="18" />
+                <Label x:Name="CourseStartDateLabel" FontSize="18" />
+                <Label x:Name="CourseEndDateLabel" FontSize="18" />
+                <Label x:Name="InstructorNameLabel" FontSize="18" />
+                <Label x:Name="InstructorPhoneLabel" FontSize="18" />
+                <Label x:Name="InstructorEmailLabel" FontSize="18" />
+
+                <Grid ColumnDefinitions="*,*"
+                      ColumnSpacing="16"
+                      Margin="0,20,0,0">
+
+                    <Button Grid.Column="0"
+                            Text="Edit Course"
+                            ImageSource="icon_edit.png"
+                            FontSize="16"
+                            HeightRequest="58"
+                            CornerRadius="16"
+                            BackgroundColor="#F5F5F5"
+                            TextColor="Black"
+                            BorderColor="Black"
+                            BorderWidth="1"
+                            Clicked="OnEditCourseClicked" />
+
+                    <Button Grid.Column="1"
+                            Text="Delete Course"
+                            ImageSource="icon_delete.png"
+                            FontSize="16"
+                            HeightRequest="58"
+                            CornerRadius="16"
+                            BackgroundColor="#F5F5F5"
+                            TextColor="Black"
+                            BorderColor="Black"
+                            BorderWidth="1"
+                            Clicked="OnDeleteCourseClicked" />
+                </Grid>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

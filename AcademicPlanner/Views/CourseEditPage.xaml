@@ -38,21 +38,24 @@
                 BackgroundColor="#002f51"
                 StrokeThickness="0"
                 Padding="0,10">
-            <Label Text="Add/Edit Course"
+            <Label x:Name="BannerTitleLabel"
+                   Text="Add/Edit Course"
                    TextColor="White"
                    FontSize="22"
                    HorizontalOptions="Center"
                    VerticalOptions="Center" />
         </Border>
 
+        <!--form-->
         <ScrollView Grid.Row="2">
-            <VerticalStackLayout Padding="28,50,28,40"
-                                 Spacing="24">
+            <VerticalStackLayout Padding="28,36,28,40"
+                                 Spacing="22">
 
                 <Grid ColumnDefinitions="Auto,*"
                       ColumnSpacing="12"
-                      RowDefinitions="Auto,Auto,Auto">
+                      RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
 
+                    <!--title-->
                     <Label Grid.Row="0"
                            Grid.Column="0"
                            Text="Course Title:"
@@ -73,6 +76,7 @@
                                ClearButtonVisibility="WhileEditing" />
                     </Border>
 
+                    <!--start date-->
                     <Label Grid.Row="1"
                            Grid.Column="0"
                            Text="StartDate:"
@@ -92,6 +96,7 @@
                                     BackgroundColor="Transparent" />
                     </Border>
 
+                    <!--end date-->
                     <Label Grid.Row="2"
                            Grid.Column="0"
                            Text="EndDate:"
@@ -110,8 +115,151 @@
                                     Format="MM/dd/yyyy"
                                     BackgroundColor="Transparent" />
                     </Border>
+
+                    <!--status-->
+                    <Label Grid.Row="3"
+                           Grid.Column="0"
+                           Text="Status:"
+                           FontSize="20"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="End" />
+
+                    <Border Grid.Row="3"
+                            Grid.Column="1"
+                            Stroke="Black"
+                            StrokeThickness="1"
+                            BackgroundColor="#F5F5F5"
+                            HeightRequest="54">
+                        <Picker x:Name="StatusPicker"
+                                Title="Select status"
+                                FontSize="18"
+                                BackgroundColor="Transparent">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>In Progress</x:String>
+                                    <x:String>Completed</x:String>
+                                    <x:String>Dropped</x:String>
+                                    <x:String>Plan to Take</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </Border>
+
+                    <!--instructor name-->
+                    <Label Grid.Row="4"
+                           Grid.Column="0"
+                           Text="Instructor Name:"
+                           FontSize="20"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="End" />
+
+                    <Border Grid.Row="4"
+                            Grid.Column="1"
+                            Stroke="Black"
+                            StrokeThickness="1"
+                            BackgroundColor="#F5F5F5"
+                            HeightRequest="54">
+                        <Entry x:Name="InstructorNameEntry"
+                               Placeholder="Text box"
+                               FontSize="18"
+                               BackgroundColor="Transparent" />
+                    </Border>
+
+                    <!--instructor phone-->
+                    <Label Grid.Row="5"
+                           Grid.Column="0"
+                           Text="Phone:"
+                           FontSize="20"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="End" />
+
+                    <Border Grid.Row="5"
+                            Grid.Column="1"
+                            Stroke="Black"
+                            StrokeThickness="1"
+                            BackgroundColor="#F5F5F5"
+                            HeightRequest="54">
+                        <Entry x:Name="InstructorPhoneEntry"
+                               Placeholder="Text box"
+                               FontSize="18"
+                               Keyboard="Telephone"
+                               BackgroundColor="Transparent" />
+                    </Border>
+
+                    <!--instructor email-->
+                    <Label Grid.Row="6"
+                           Grid.Column="0"
+                           Text="Email:"
+                           FontSize="20"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="End" />
+
+                    <Border Grid.Row="6"
+                            Grid.Column="1"
+                            Stroke="Black"
+                            StrokeThickness="1"
+                            BackgroundColor="#F5F5F5"
+                            HeightRequest="54">
+                        <Entry x:Name="InstructorEmailEntry"
+                               Placeholder="Text box"
+                               FontSize="18"
+                               Keyboard="Email"
+                               BackgroundColor="Transparent" />
+                    </Border>
+
+                    <!--notes-->
+                    <Label Grid.Row="7"
+                           Grid.Column="0"
+                           Text="Notes:"
+                           FontSize="20"
+                           VerticalTextAlignment="Start"
+                           HorizontalTextAlignment="End" />
+
+                    <Border Grid.Row="7"
+                            Grid.Column="1"
+                            Stroke="Black"
+                            StrokeThickness="1"
+                            BackgroundColor="#F5F5F5"
+                            MinimumHeightRequest="110"
+                            Padding="6">
+                        <Editor x:Name="NotesEditor"
+                                FontSize="18"
+                                AutoSize="TextChanges"
+                                BackgroundColor="Transparent" />
+                    </Border>
                 </Grid>
 
+            <!--alerts-->
+                <Grid ColumnDefinitions="Auto,*"
+                      ColumnSpacing="12">
+                    <Label Grid.Column="0"
+                           Text="Set Alert:"
+                           FontSize="20"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="End" />
+
+                    <Border Grid.Column="1"
+                            Stroke="Black"
+                            StrokeThickness="1"
+                            BackgroundColor="#F5F5F5"
+                            HeightRequest="54">
+                        <Picker x:Name="AlertSettingPicker"
+                                Title="Select alert setting"
+                                FontSize="18"
+                                BackgroundColor="Transparent">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>None</x:String>
+                                    <x:String>Start</x:String>
+                                    <x:String>End</x:String>
+                                    <x:String>Start and End</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </Border>
+                </Grid>
+
+                <!-- save cancel buttons -->
                 <Grid ColumnDefinitions="*,*"
                       ColumnSpacing="16"
                       Margin="0,24,0,0"

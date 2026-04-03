@@ -32,7 +32,7 @@ namespace AcademicPlanner.Data
             _initialized = true;
         }
 
-        // Terms
+        // terms
         public async Task<List<Term>> GetTermsAsync()
         {
             await InitAsync();
@@ -83,7 +83,7 @@ namespace AcademicPlanner.Data
             }
         }
 
-        // Courses
+        // courses
         public async Task<int> SaveCourseAsync(Course course)
         {
             await InitAsync();
@@ -110,6 +110,11 @@ namespace AcademicPlanner.Data
             return await _database!
                 .Table<Course>()
                 .FirstOrDefaultAsync(c => c.Id == id);
+        }
+        public async Task<int> DeleteCourseAsync(Course course)
+        {
+            await InitAsync();
+            return await _database!.DeleteAsync(course);
         }
     }
 }

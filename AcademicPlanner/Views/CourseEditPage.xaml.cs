@@ -1,4 +1,5 @@
 using AcademicPlanner.Data;
+using AcademicPlanner.Helpers;
 using AcademicPlanner.Models;
 
 namespace AcademicPlanner.Views;
@@ -42,6 +43,9 @@ public partial class CourseEditPage : ContentPage
 
         StartDatePicker.Date = DateTime.Today;
         EndDatePicker.Date = DateTime.Today.AddMonths(1);
+
+        StatusPicker.SelectedIndex = -1;
+        AlertSettingPicker.SelectedIndex = 0; // None
     }
 
     private async Task LoadCourseAsync()
@@ -52,24 +56,73 @@ public partial class CourseEditPage : ContentPage
 
         _termId = course.TermId;
 
+        BannerTitleLabel.Text = "Edit Course";
+
         TitleEntry.Text = course.Title;
         StartDatePicker.Date = course.StartDate;
         EndDatePicker.Date = course.EndDate;
+
+        if (!string.IsNullOrWhiteSpace(course.Status))
+            StatusPicker.SelectedItem = course.Status;
+
+        InstructorNameEntry.Text = course.InstructorName;
+        InstructorPhoneEntry.Text = course.InstructorPhone;
+        InstructorEmailEntry.Text = course.InstructorEmail;
+        NotesEditor.Text = course.Notes;
+
+        if (!string.IsNullOrWhiteSpace(course.AlertSetting))
+            AlertSettingPicker.SelectedItem = course.AlertSetting;
     }
 
     private async void OnSaveClicked(object? sender, EventArgs e)
     {
         string title = TitleEntry.Text?.Trim() ?? string.Empty;
+        string instructorName = InstructorNameEntry.Text?.Trim() ?? string.Empty;
+        string instructorPhone = InstructorPhoneEntry.Text?.Trim() ?? string.Empty;
+        string instructorEmail = InstructorEmailEntry.Text?.Trim() ?? string.Empty;
+        string notes = NotesEditor.Text?.Trim() ?? string.Empty;
+        string status = StatusPicker.SelectedItem?.ToString() ?? string.Empty;
+        string alertSetting = AlertSettingPicker.SelectedItem?.ToString() ?? "None";
 
-        if (string.IsNullOrWhiteSpace(title))
+        if (!ValidationHelper.IsRequired(title))
         {
             await DisplayAlert("Validation Error", "Course title is required.", "OK");
             return;
         }
 
-        if (StartDatePicker.Date > EndDatePicker.Date)
+        if (!ValidationHelper.DatesAreValid(StartDatePicker.Date, EndDatePicker.Date))
         {
             await DisplayAlert("Validation Error", "Start date cannot be after end date.", "OK");
+            return;
+        }
+
+        if (!ValidationHelper.IsRequired(status))
+        {
+            await DisplayAlert("Validation Error", "Course status is required.", "OK");
+            return;
+        }
+
+        if (!ValidationHelper.IsRequired(instructorName))
+        {
+            await DisplayAlert("Validation Error", "Instructor name is required.", "OK");
+            return;
+        }
+
+        if (!ValidationHelper.IsRequired(instructorPhone))
+        {
+            await DisplayAlert("Validation Error", "Instructor phone is required.", "OK");
+            return;
+        }
+
+        if (!ValidationHelper.IsRequired(instructorEmail))
+        {
+            await DisplayAlert("Validation Error", "Instructor email is required.", "OK");
+            return;
+        }
+
+        if (!ValidationHelper.IsValidEmail(instructorEmail))
+        {
+            await DisplayAlert("Validation Error", "Enter a valid instructor email.", "OK");
             return;
         }
 
@@ -79,7 +132,13 @@ public partial class CourseEditPage : ContentPage
             TermId = _termId,
             Title = title,
             StartDate = StartDatePicker.Date,
-            EndDate = EndDatePicker.Date
+            EndDate = EndDatePicker.Date,
+            Status = status,
+            InstructorName = instructorName,
+            InstructorPhone = instructorPhone,
+            InstructorEmail = instructorEmail,
+            Notes = notes,
+            AlertSetting = alertSetting
         };
 
         await _database.SaveCourseAsync(course);

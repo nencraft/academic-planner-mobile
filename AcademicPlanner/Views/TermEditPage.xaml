@@ -7,7 +7,6 @@
 
     <Grid RowDefinitions="Auto,Auto,*">
 
-        <!-- Top icon row -->
         <Grid Grid.Row="0"
               Padding="16,12,16,8"
               ColumnDefinitions="60,*,60"
@@ -30,7 +29,6 @@
 
         </Grid>
 
-        <!-- Blue title bar -->
         <Border Grid.Row="1"
                 BackgroundColor="#002f51"
                 StrokeThickness="0"
@@ -42,7 +40,6 @@
                    VerticalOptions="Center" />
         </Border>
 
-        <!-- Form -->
         <ScrollView Grid.Row="2">
             <VerticalStackLayout Padding="28,70,28,40"
                                  Spacing="26">

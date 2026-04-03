@@ -1,6 +1,7 @@
 using AcademicPlanner.Data;
 using AcademicPlanner.Helpers;
 using AcademicPlanner.Models;
+using AcademicPlanner.Services;
 
 namespace AcademicPlanner.Views;
 
@@ -9,6 +10,7 @@ namespace AcademicPlanner.Views;
 public partial class CourseEditPage : ContentPage
 {
     private readonly AcademicPlannerDatabase _database;
+    private readonly INotificationManagerService _notificationService;
 
     private int _termId;
     private int _courseId;
@@ -36,16 +38,17 @@ public partial class CourseEditPage : ContentPage
         }
     }
 
-    public CourseEditPage(AcademicPlannerDatabase database)
+    public CourseEditPage(AcademicPlannerDatabase database, INotificationManagerService notificationService)
     {
         InitializeComponent();
         _database = database;
+        _notificationService = notificationService;
 
         StartDatePicker.Date = DateTime.Today;
         EndDatePicker.Date = DateTime.Today.AddMonths(1);
 
         StatusPicker.SelectedIndex = -1;
-        AlertSettingPicker.SelectedIndex = 0; // None
+        AlertSettingPicker.SelectedIndex = 0;
     }
 
     private async Task LoadCourseAsync()
@@ -140,6 +143,35 @@ public partial class CourseEditPage : ContentPage
             Notes = notes,
             AlertSetting = alertSetting
         };
+
+        if (course.AlertSetting != "None")
+        {
+#if ANDROID
+            var permission = await Permissions.RequestAsync<AcademicPlanner.Platforms.Android.NotificationPermission>();
+            if (permission != PermissionStatus.Granted)
+            {
+                await DisplayAlert("Notifications", "Notification permission was not granted.", "OK");
+            }
+            else
+            {
+                if (course.AlertSetting == "Start" || course.AlertSetting == "Start and End")
+                {
+                    _notificationService.SendNotification(
+                        "Course Start Reminder",
+                        $"{course.Title} starts today.",
+                        course.StartDate.Date.AddHours(9));
+                }
+
+                if (course.AlertSetting == "End" || course.AlertSetting == "Start and End")
+                {
+                    _notificationService.SendNotification(
+                        "Course End Reminder",
+                        $"{course.Title} ends today.",
+                        course.EndDate.Date.AddHours(9));
+                }
+            }
+#endif
+        }
 
         await _database.SaveCourseAsync(course);
         await Shell.Current.GoToAsync("..");

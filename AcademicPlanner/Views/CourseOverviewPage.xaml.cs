@@ -1,5 +1,6 @@
 using AcademicPlanner.Data;
 using AcademicPlanner.Models;
+using Microsoft.Maui.ApplicationModel.DataTransfer;
 
 namespace AcademicPlanner.Views;
 
@@ -43,12 +44,21 @@ public partial class CourseOverviewPage : ContentPage
             return;
 
         CourseTitleLabel.Text = _course.Title;
-        CourseStatusLabel.Text = $"Status: {_course.Status}";
-        CourseStartDateLabel.Text = $"Start Date: {_course.StartDate:MM/dd/yyyy}";
-        CourseEndDateLabel.Text = $"Anticipated End / Due Date: {_course.EndDate:MM/dd/yyyy}";
-        InstructorNameLabel.Text = $"Instructor Name: {_course.InstructorName}";
-        InstructorPhoneLabel.Text = $"Phone: {_course.InstructorPhone}";
-        InstructorEmailLabel.Text = $"Email: {_course.InstructorEmail}";
+        CourseStatusLabel.Text = _course.Status;
+        CourseStartDateLabel.Text = _course.StartDate.ToString("MM/dd/yyyy");
+        CourseEndDateLabel.Text = _course.EndDate.ToString("MM/dd/yyyy");
+        InstructorNameLabel.Text = _course.InstructorName;
+        InstructorPhoneLabel.Text = _course.InstructorPhone;
+        InstructorEmailLabel.Text = _course.InstructorEmail;
+        NotesLabel.Text = string.IsNullOrWhiteSpace(_course.Notes)
+            ? "No notes added."
+            : _course.Notes;
+
+        CourseBellButton.Source = _course.AlertSetting == "None"
+            ? "icon_bell_inactive.png"
+            : "icon_bell_active.png";
+
+        AssessmentsCollectionView.ItemsSource = await _database.GetAssessmentsByCourseAsync(_courseId);
     }
 
     private async void OnBackClicked(object? sender, EventArgs e)
@@ -75,12 +85,51 @@ public partial class CourseOverviewPage : ContentPage
         if (!confirm)
             return;
 
-        await _database.DeleteCourseAsync(_course);
+        await _database.DeleteCourseCascadeAsync(_courseId);
         await Shell.Current.GoToAsync("..");
     }
 
-    private async void OnAlertClicked(object? sender, EventArgs e)
+    private async void OnCourseAlertClicked(object? sender, EventArgs e)
     {
-        await DisplayAlert("Alerts", "To do: alerts", "OK");
+        await DisplayAlert(
+            "Course Alerts",
+            "Select 'Edit Course' to modify alerts.",
+            "OK");
+    }
+
+    private async void OnShareNotesClicked(object? sender, EventArgs e)
+    {
+        if (_course is null || string.IsNullOrWhiteSpace(_course.Notes))
+        {
+            await DisplayAlert("Share Notes", "There are no notes to share.", "OK");
+            return;
+        }
+
+        await Share.Default.RequestAsync(new ShareTextRequest
+        {
+            Text = _course.Notes,
+            Title = "Course Notes"
+        });
+    }
+
+    private async void OnAddAssessmentClicked(object? sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"{nameof(AssessmentEditPage)}?courseId={_courseId}");
+    }
+
+    private async void OnEditAssessmentClicked(object? sender, EventArgs e)
+    {
+        if (sender is not ImageButton button || button.CommandParameter is not int assessmentId)
+            return;
+
+        await Shell.Current.GoToAsync($"{nameof(AssessmentEditPage)}?assessmentId={assessmentId}");
+    }
+
+    private async void OnAssessmentAlertClicked(object? sender, EventArgs e)
+    {
+        await DisplayAlert(
+            "Assessment Alerts",
+            "TBD in C5.",
+            "OK");
     }
 }

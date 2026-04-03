@@ -29,4 +29,6 @@ public static class ValidationHelper
             @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
             RegexOptions.IgnoreCase);
     }
+
+
 }

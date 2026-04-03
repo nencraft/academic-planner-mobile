@@ -28,6 +28,7 @@ namespace AcademicPlanner.Data
 
             await _database.CreateTableAsync<Term>();
             await _database.CreateTableAsync<Course>();
+            await _database.CreateTableAsync<Assessment>();
 
             _initialized = true;
         }
@@ -115,6 +116,58 @@ namespace AcademicPlanner.Data
         {
             await InitAsync();
             return await _database!.DeleteAsync(course);
+        }
+
+        // assessments
+        public async Task<List<Assessment>> GetAssessmentsByCourseAsync(int courseId)
+        {
+            await InitAsync();
+            return await _database!
+                .Table<Assessment>()
+                .Where(a => a.CourseId == courseId)
+                .OrderBy(a => a.Type)
+                .ToListAsync();
+        }
+
+        public async Task<Assessment?> GetAssessmentAsync(int id)
+        {
+            await InitAsync();
+            return await _database!
+                .Table<Assessment>()
+                .FirstOrDefaultAsync(a => a.Id == id);
+        }
+
+        public async Task<int> SaveAssessmentAsync(Assessment assessment)
+        {
+            await InitAsync();
+
+            if (assessment.Id != 0)
+                return await _database!.UpdateAsync(assessment);
+
+            return await _database!.InsertAsync(assessment);
+        }
+
+        public async Task<int> DeleteAssessmentAsync(Assessment assessment)
+        {
+            await InitAsync();
+            return await _database!.DeleteAsync(assessment);
+        }
+
+        public async Task DeleteCourseCascadeAsync(int courseId)
+        {
+            await InitAsync();
+
+            var assessments = await GetAssessmentsByCourseAsync(courseId);
+            foreach (var assessment in assessments)
+            {
+                await _database!.DeleteAsync(assessment);
+            }
+
+            var course = await GetCourseAsync(courseId);
+            if (course is not null)
+            {
+                await _database!.DeleteAsync(course);
+            }
         }
     }
 }

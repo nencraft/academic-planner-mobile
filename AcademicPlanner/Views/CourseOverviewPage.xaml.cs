@@ -54,7 +54,7 @@ public partial class CourseOverviewPage : ContentPage
             ? "No notes added."
             : _course.Notes;
 
-        CourseBellButton.Source = _course.AlertSetting == "None"
+        CourseBellImage.Source = _course.AlertSetting == "None"
             ? "icon_bell_inactive.png"
             : "icon_bell_active.png";
 
@@ -87,14 +87,6 @@ public partial class CourseOverviewPage : ContentPage
 
         await _database.DeleteCourseCascadeAsync(_courseId);
         await Shell.Current.GoToAsync("..");
-    }
-
-    private async void OnCourseAlertClicked(object? sender, EventArgs e)
-    {
-        await DisplayAlert(
-            "Course Alerts",
-            "Select 'Edit Course' to modify alerts.",
-            "OK");
     }
 
     private async void OnShareNotesClicked(object? sender, EventArgs e)

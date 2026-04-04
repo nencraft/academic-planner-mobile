@@ -169,5 +169,17 @@ namespace AcademicPlanner.Data
                 await _database!.DeleteAsync(course);
             }
         }
+
+        // for sample data
+        public async Task<bool> HasAnyDataAsync()
+        {
+            await InitAsync();
+
+            int termCount = await _database!.Table<Term>().CountAsync();
+            int courseCount = await _database!.Table<Course>().CountAsync();
+            int assessmentCount = await _database!.Table<Assessment>().CountAsync();
+
+            return termCount > 0 || courseCount > 0 || assessmentCount > 0;
+        }
     }
 }

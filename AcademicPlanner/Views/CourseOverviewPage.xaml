@@ -32,8 +32,7 @@
                    Aspect="AspectFit" />
 
             <ImageButton Grid.Column="2"
-                         x:Name="CourseBellButton"
-                         Source="icon_bell_inactive.png"
+                         Source="icon_edit.png"
                          BackgroundColor="Transparent"
                          WidthRequest="48"
                          HeightRequest="48"
@@ -41,7 +40,7 @@
                          HorizontalOptions="Center"
                          VerticalOptions="Center"
                          Aspect="AspectFit"
-                         Clicked="OnCourseAlertClicked" />
+                         Clicked="OnEditCourseClicked" />
         </Grid>
 
         <Border Grid.Row="1"
@@ -59,11 +58,30 @@
             <VerticalStackLayout Padding="22,22,22,30"
                                  Spacing="18">
 
-                <Label x:Name="CourseTitleLabel"
+                <Grid ColumnDefinitions="*,Auto"
+                  ColumnSpacing="6"
+                  HorizontalOptions="Fill"
+                  VerticalOptions="Center">         
+
+                    <Label Grid.Column="0"
+                       x:Name="CourseTitleLabel"
                        FontSize="28"
                        FontAttributes="Bold"
-                       HorizontalTextAlignment="Center"
-                       TextColor="Black" />
+                       TextColor="Black"
+                       LineBreakMode="TailTruncation"
+                       MaxLines="1"
+                       HorizontalOptions="Fill"
+                       VerticalTextAlignment="Center" />
+
+                    <Image Grid.Column="1"
+                       x:Name="CourseBellImage"
+                       Source="icon_bell_inactive.png"
+                       WidthRequest="30"
+                       HeightRequest="30"
+                       VerticalOptions="Start"
+                       Margin="0,4,0,0"
+                       Aspect="AspectFit" />
+                </Grid>
 
                 <Grid ColumnDefinitions="Auto,*"
                       ColumnSpacing="12"
@@ -176,21 +194,40 @@
 
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid ColumnDefinitions="*,Auto,Auto"
+                                    <Grid ColumnDefinitions="*,Auto"
                                           ColumnSpacing="12"
                                           Padding="0,8">
 
-                                        <VerticalStackLayout>
-                                            <Label Text="{Binding Title}"
+                                        <VerticalStackLayout Grid.Column="0"
+                                            Spacing="2">
+                                            <Grid Grid.Column="0"
+                                                  ColumnDefinitions="*,Auto"
+                                                  ColumnSpacing="6">
+
+                                                <Label Grid.Column="0"
+                                                   Text="{Binding Title}"
                                                    FontSize="18"
                                                    FontAttributes="Bold"
-                                                   TextColor="Black" />
+                                                   TextColor="Black"
+                                                   LineBreakMode="TailTruncation"
+                                                   MaxLines="1"
+                                                   VerticalTextAlignment="Center" />
+
+                                                <Image Grid.Column="1"
+                                                   Source="{Binding BellIconSource}"
+                                                   WidthRequest="22"
+                                                   HeightRequest="22"
+                                                   VerticalOptions="Center"
+                                                   Aspect="AspectFit" />
+                                            </Grid>
+
                                             <Label Text="{Binding Type}"
-                                                   FontSize="15"
-                                                   TextColor="Black" />
+                                               FontSize="15"
+                                               TextColor="Black" />
+
                                             <Label Text="{Binding EndDate, StringFormat='Due: {0:MM/dd/yyyy}'}"
-                                                   FontSize="15"
-                                                   TextColor="Black" />
+                                               FontSize="15"
+                                               TextColor="Black" />
                                         </VerticalStackLayout>
 
                                         <ImageButton Grid.Column="1"
@@ -201,14 +238,6 @@
                                                      Aspect="AspectFit"
                                                      CommandParameter="{Binding Id}"
                                                      Clicked="OnEditAssessmentClicked" />
-
-                                        <ImageButton Grid.Column="2"
-                                                     Source="icon_bell_inactive.png"
-                                                     BackgroundColor="Transparent"
-                                                     WidthRequest="24"
-                                                     HeightRequest="24"
-                                                     Aspect="AspectFit"
-                                                     CommandParameter="{Binding Id}"/>
                                     </Grid>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
@@ -246,34 +275,17 @@
                     </VerticalStackLayout>
                 </Border>
 
-                <Grid ColumnDefinitions="*,*"
-                      ColumnSpacing="16"
-                      Margin="0,12,0,0">
-
-                    <Button Grid.Column="0"
-                            Text="Edit Course"
-                            ImageSource="icon_edit.png"
-                            FontSize="16"
-                            HeightRequest="58"
-                            CornerRadius="16"
-                            BackgroundColor="#F5F5F5"
-                            TextColor="Black"
-                            BorderColor="Black"
-                            BorderWidth="1"
-                            Clicked="OnEditCourseClicked" />
-
-                    <Button Grid.Column="1"
-                            Text="Delete Course"
-                            ImageSource="icon_delete.png"
-                            FontSize="16"
-                            HeightRequest="58"
-                            CornerRadius="16"
-                            BackgroundColor="#F5F5F5"
-                            TextColor="Black"
-                            BorderColor="Black"
-                            BorderWidth="1"
-                            Clicked="OnDeleteCourseClicked" />
-                </Grid>
+                <Button Text="Delete Course"
+                        ImageSource="icon_delete.png"
+                        FontSize="16"
+                        HeightRequest="58"
+                        CornerRadius="16"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="Black"
+                        BorderColor="Black"
+                        BorderWidth="2"
+                        Margin="0,12,0,0"
+                        Clicked="OnDeleteCourseClicked" />
 
             </VerticalStackLayout>
         </ScrollView>

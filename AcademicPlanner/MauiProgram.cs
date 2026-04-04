@@ -25,6 +25,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<AcademicPlannerDatabase>();
         builder.Services.AddSingleton<INotificationManagerService, AcademicPlanner.Platforms.Android.NotificationManagerService>();
+        builder.Services.AddSingleton<SeedDataService>();
 
         builder.Services.AddTransient<TermsPage>();
         builder.Services.AddTransient<TermEditPage>();

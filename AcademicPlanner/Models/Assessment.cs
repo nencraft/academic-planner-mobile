@@ -30,4 +30,10 @@ public class Assessment
     public int? StartNotificationId { get; set; }
 
     public int? EndNotificationId { get; set; }
+
+    [Ignore]
+    public string BellIconSource =>
+    AlertSetting == "None"
+        ? "icon_bell_inactive.png"
+        : "icon_bell_active.png";
 }

@@ -124,12 +124,4 @@ public partial class CourseOverviewPage : ContentPage
 
         await Shell.Current.GoToAsync($"{nameof(AssessmentEditPage)}?assessmentId={assessmentId}");
     }
-
-    private async void OnAssessmentAlertClicked(object? sender, EventArgs e)
-    {
-        await DisplayAlert(
-            "Assessment Alerts",
-            "TBD in C5.",
-            "OK");
-    }
 }

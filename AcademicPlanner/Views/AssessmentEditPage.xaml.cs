@@ -1,5 +1,7 @@
 using AcademicPlanner.Data;
+using AcademicPlanner.Helpers;
 using AcademicPlanner.Models;
+using AcademicPlanner.Services;
 
 namespace AcademicPlanner.Views;
 
@@ -8,6 +10,7 @@ namespace AcademicPlanner.Views;
 public partial class AssessmentEditPage : ContentPage
 {
     private readonly AcademicPlannerDatabase _database;
+    private readonly INotificationManagerService _notificationService;
 
     private int _courseId;
     private int _assessmentId;
@@ -35,10 +38,13 @@ public partial class AssessmentEditPage : ContentPage
         }
     }
 
-    public AssessmentEditPage(AcademicPlannerDatabase database)
+    public AssessmentEditPage(
+        AcademicPlannerDatabase database,
+        INotificationManagerService notificationService)
     {
         InitializeComponent();
         _database = database;
+        _notificationService = notificationService;
 
         StartDatePicker.Date = DateTime.Today;
         EndDatePicker.Date = DateTime.Today.AddMonths(1);
@@ -75,21 +81,41 @@ public partial class AssessmentEditPage : ContentPage
         string type = AssessmentTypePicker.SelectedItem?.ToString() ?? string.Empty;
         string alertSetting = AlertSettingPicker.SelectedItem?.ToString() ?? "None";
 
-        if (string.IsNullOrWhiteSpace(title))
+        if (!ValidationHelper.IsRequired(title))
         {
             await DisplayAlert("Validation Error", "Assessment title is required.", "OK");
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(type))
+        if (!ValidationHelper.IsRequired(type))
         {
             await DisplayAlert("Validation Error", "Assessment type is required.", "OK");
             return;
         }
 
-        if (StartDatePicker.Date > EndDatePicker.Date)
+        if (!ValidationHelper.DatesAreValid(StartDatePicker.Date, EndDatePicker.Date))
         {
             await DisplayAlert("Validation Error", "Start date cannot be after end date.", "OK");
+            return;
+        }
+
+        var existingAssessments = await _database.GetAssessmentsByCourseAsync(_courseId);
+
+        if (_assessmentId == 0 && !ValidationHelper.CanAddAnotherAssessment(existingAssessments))
+        {
+            await DisplayAlert(
+                "Assessment Limit",
+                "Each course can only have two assessments: one Objective and one Performance.",
+                "OK");
+            return;
+        }
+
+        if (ValidationHelper.HasDuplicateAssessmentType(existingAssessments, type, _assessmentId))
+        {
+            await DisplayAlert(
+                "Duplicate Assessment Type",
+                $"This course already has a {type} assessment.",
+                "OK");
             return;
         }
 
@@ -105,6 +131,32 @@ public partial class AssessmentEditPage : ContentPage
         };
 
         await _database.SaveAssessmentAsync(assessment);
+
+#if ANDROID
+        if (assessment.AlertSetting != "None")
+        {
+            var permission = await Permissions.RequestAsync<AcademicPlanner.Platforms.Android.NotificationPermission>();
+            if (permission == PermissionStatus.Granted)
+            {
+                if (assessment.AlertSetting == "Start" || assessment.AlertSetting == "Start and End")
+                {
+                    _notificationService.SendNotification(
+                        "Assessment Start Reminder",
+                        $"{assessment.Title} starts today.",
+                        assessment.StartDate.Date.AddHours(9));
+                }
+
+                if (assessment.AlertSetting == "End" || assessment.AlertSetting == "Start and End")
+                {
+                    _notificationService.SendNotification(
+                        "Assessment Due Reminder",
+                        $"{assessment.Title} is due today.",
+                        assessment.EndDate.Date.AddHours(9));
+                }
+            }
+        }
+#endif
+
         await Shell.Current.GoToAsync("..");
     }
 

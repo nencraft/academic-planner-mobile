@@ -4,6 +4,12 @@
              x:Class="AcademicPlanner.App">
     <Application.Resources>
         <ResourceDictionary>
+            <x:String x:Key="NamePlaceholder">Enter name</x:String>
+            <x:String x:Key="InstructorNamePlaceholder">Enter instructor name</x:String>
+            <x:String x:Key="EmailPlaceholder">example@address.com</x:String>
+            <x:String x:Key="PhonePlaceholder">xxx-xxx-xxxx</x:String>
+            <x:String x:Key="TitlePlaceholder">Enter title</x:String>
+            <x:String x:Key="NotesPlaceholder">Enter notes</x:String>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

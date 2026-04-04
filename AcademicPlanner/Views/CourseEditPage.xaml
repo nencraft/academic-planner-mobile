@@ -39,7 +39,7 @@
                 StrokeThickness="0"
                 Padding="0,10">
             <Label x:Name="BannerTitleLabel"
-                   Text="Add/Edit Course"
+                   Text="Add Course"
                    TextColor="White"
                    FontSize="22"
                    HorizontalOptions="Center"
@@ -70,7 +70,7 @@
                             BackgroundColor="#F5F5F5"
                             HeightRequest="54">
                         <Entry x:Name="TitleEntry"
-                               Placeholder="Text box"
+                               Placeholder="{StaticResource TitlePlaceholder}"
                                FontSize="18"
                                BackgroundColor="Transparent"
                                ClearButtonVisibility="WhileEditing" />
@@ -160,7 +160,7 @@
                             BackgroundColor="#F5F5F5"
                             HeightRequest="54">
                         <Entry x:Name="InstructorNameEntry"
-                               Placeholder="Text box"
+                               Placeholder="{StaticResource InstructorNamePlaceholder}"
                                FontSize="18"
                                BackgroundColor="Transparent" />
                     </Border>
@@ -168,7 +168,7 @@
                     <!--instructor phone-->
                     <Label Grid.Row="5"
                            Grid.Column="0"
-                           Text="Phone:"
+                           Text="Instructor Phone:"
                            FontSize="20"
                            VerticalTextAlignment="Center"
                            HorizontalTextAlignment="End" />
@@ -180,7 +180,7 @@
                             BackgroundColor="#F5F5F5"
                             HeightRequest="54">
                         <Entry x:Name="InstructorPhoneEntry"
-                               Placeholder="Text box"
+                               Placeholder="{StaticResource PhonePlaceholder}"
                                FontSize="18"
                                Keyboard="Telephone"
                                BackgroundColor="Transparent" />
@@ -189,7 +189,7 @@
                     <!--instructor email-->
                     <Label Grid.Row="6"
                            Grid.Column="0"
-                           Text="Email:"
+                           Text="Instructor Email:"
                            FontSize="20"
                            VerticalTextAlignment="Center"
                            HorizontalTextAlignment="End" />
@@ -201,7 +201,7 @@
                             BackgroundColor="#F5F5F5"
                             HeightRequest="54">
                         <Entry x:Name="InstructorEmailEntry"
-                               Placeholder="Text box"
+                               Placeholder="{StaticResource EmailPlaceholder}"
                                FontSize="18"
                                Keyboard="Email"
                                BackgroundColor="Transparent" />
@@ -290,7 +290,7 @@
                             BorderColor="Black"
                             BorderWidth="1"
                             Padding="12,0"
-                            HorizontalOptions="Fill"
+                            HorizontalOptions="Fill" 
                             Clicked="OnCancelClicked" />
                 </Grid>
 

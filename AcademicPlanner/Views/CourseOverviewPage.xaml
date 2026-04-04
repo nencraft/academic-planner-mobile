@@ -208,8 +208,7 @@
                                                      WidthRequest="24"
                                                      HeightRequest="24"
                                                      Aspect="AspectFit"
-                                                     CommandParameter="{Binding Id}"
-                                                     Clicked="OnAssessmentAlertClicked" />
+                                                     CommandParameter="{Binding Id}"/>
                                     </Grid>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>

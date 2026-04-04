@@ -39,7 +39,7 @@
                 StrokeThickness="0"
                 Padding="0,10">
             <Label x:Name="BannerTitleLabel"
-                   Text="Add/Edit Assessment"
+                   Text="Add Assessment"
                    TextColor="White"
                    FontSize="22"
                    HorizontalOptions="Center"
@@ -76,7 +76,7 @@
 
                     <Label Grid.Row="1"
                            Grid.Column="0"
-                           Text="StartDate:"
+                           Text="Start Date:"
                            FontSize="20"
                            VerticalTextAlignment="Center"
                            HorizontalTextAlignment="End" />
@@ -95,7 +95,7 @@
 
                     <Label Grid.Row="2"
                            Grid.Column="0"
-                           Text="EndDate:"
+                           Text="End Date:"
                            FontSize="20"
                            VerticalTextAlignment="Center"
                            HorizontalTextAlignment="End" />
@@ -206,14 +206,12 @@
                         ImageSource="icon_delete.png"
                         FontSize="16"
                         HeightRequest="58"
-                        WidthRequest="240"
                         CornerRadius="16"
                         BackgroundColor="#F5F5F5"
                         TextColor="Black"
                         BorderColor="Black"
                         BorderWidth="1"
                         HorizontalOptions="Center"
-                        Margin="0,18,0,0"
                         IsVisible="False"
                         Clicked="OnDeleteClicked" />
 

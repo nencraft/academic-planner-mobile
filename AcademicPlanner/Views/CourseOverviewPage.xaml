@@ -1,243 +1,316 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AcademicPlanner.Views.CourseOverviewPage"
-             Shell.NavBarIsVisible="False"
-             BackgroundColor="#EFEFEF">
+<ContentPage
+    x:Class="AcademicPlanner.Views.CourseOverviewPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#EFEFEF"
+    Shell.NavBarIsVisible="False">
 
     <Grid RowDefinitions="Auto,Auto,*">
 
-        <Grid Grid.Row="0"
-              Padding="16,12,16,8"
-              ColumnDefinitions="56,*,56"
-              ColumnSpacing="16"
-              BackgroundColor="White">
+        <Grid
+            Grid.Row="0"
+            Padding="16,12,16,8"
+            BackgroundColor="White"
+            ColumnDefinitions="56,*,56"
+            ColumnSpacing="16">
 
-            <ImageButton Grid.Column="0"
-                         Source="icon_back.png"
-                         BackgroundColor="Transparent"
-                         WidthRequest="48"
-                         HeightRequest="48"
-                         Padding="0"
-                         HorizontalOptions="Center"
-                         VerticalOptions="Center"
-                         Aspect="AspectFit"
-                         Clicked="OnBackClicked" />
+            <ImageButton
+                Grid.Column="0"
+                Padding="0"
+                Aspect="AspectFit"
+                BackgroundColor="Transparent"
+                Clicked="OnBackClicked"
+                HeightRequest="48"
+                HorizontalOptions="Center"
+                Source="icon_back.png"
+                VerticalOptions="Center"
+                WidthRequest="48" />
 
-            <Image Grid.Column="1"
-                   Source="wgu_owl.png"
-                   HeightRequest="56"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center"
-                   Aspect="AspectFit" />
+            <ImageButton
+                Grid.Column="1"
+                Padding="0"
+                Aspect="AspectFit"
+                BackgroundColor="Transparent"
+                Clicked="OnHomeClicked"
+                HeightRequest="56"
+                HorizontalOptions="Center"
+                Source="wgu_owl.png"
+                VerticalOptions="Center"
+                WidthRequest="56" />
 
-            <ImageButton Grid.Column="2"
-                         Source="icon_edit.png"
-                         BackgroundColor="Transparent"
-                         WidthRequest="48"
-                         HeightRequest="48"
-                         Padding="0"
-                         HorizontalOptions="Center"
-                         VerticalOptions="Center"
-                         Aspect="AspectFit"
-                         Clicked="OnEditCourseClicked" />
+            <ImageButton
+                Grid.Column="2"
+                Padding="0"
+                Aspect="AspectFit"
+                BackgroundColor="Transparent"
+                Clicked="OnEditCourseClicked"
+                HeightRequest="48"
+                HorizontalOptions="Center"
+                Source="icon_edit.png"
+                VerticalOptions="Center"
+                WidthRequest="48" />
         </Grid>
 
-        <Border Grid.Row="1"
-                BackgroundColor="#002f51"
-                StrokeThickness="0"
-                Padding="0,10">
-            <Label Text="Course Overview"
-                   TextColor="White"
-                   FontSize="22"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center" />
+        <Border
+            Grid.Row="1"
+            Padding="0,10"
+            BackgroundColor="#002f51"
+            StrokeThickness="0">
+            <Label
+                FontSize="22"
+                HorizontalOptions="Center"
+                Text="Course Overview"
+                TextColor="White"
+                VerticalOptions="Center" />
         </Border>
 
         <ScrollView Grid.Row="2">
-            <VerticalStackLayout Padding="22,22,22,30"
-                                 Spacing="18">
+            <VerticalStackLayout Padding="22,22,22,30" Spacing="18">
 
-                <Grid ColumnDefinitions="*,Auto"
-                  ColumnSpacing="6"
-                  HorizontalOptions="Fill"
-                  VerticalOptions="Center">         
+                <HorizontalStackLayout
+                    HorizontalOptions="Center"
+                    Spacing="4"
+                    VerticalOptions="Center">
 
-                    <Label Grid.Column="0"
-                       x:Name="CourseTitleLabel"
-                       FontSize="28"
-                       FontAttributes="Bold"
-                       TextColor="Black"
-                       LineBreakMode="TailTruncation"
-                       MaxLines="1"
-                       HorizontalOptions="Fill"
-                       VerticalTextAlignment="Center" />
+                    <Label
+                        x:Name="CourseTitleLabel"
+                        FontAttributes="Bold"
+                        FontSize="28"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="1"
+                        MaximumWidthRequest="280"
+                        TextColor="Black"
+                        VerticalTextAlignment="Center" />
 
-                    <Image Grid.Column="1"
-                       x:Name="CourseBellImage"
-                       Source="icon_bell_inactive.png"
-                       WidthRequest="30"
-                       HeightRequest="30"
-                       VerticalOptions="Start"
-                       Margin="0,4,0,0"
-                       Aspect="AspectFit" />
+                    <Image
+                        x:Name="CourseBellImage"
+                        Aspect="AspectFit"
+                        HeightRequest="32"
+                        Source="icon_bell_inactive.png"
+                        VerticalOptions="Center"
+                        WidthRequest="32" />
+                </HorizontalStackLayout>
+
+                <Grid
+                    Padding="6,0"
+                    ColumnDefinitions="Auto,*,Auto"
+                    ColumnSpacing="12"
+                    RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        HorizontalTextAlignment="End"
+                        Text="Status:"
+                        TextColor="Black" />
+                    <Label
+                        x:Name="CourseStatusLabel"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        FontSize="18"
+                        TextColor="Black" />
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        HorizontalTextAlignment="End"
+                        Text="Start Date:"
+                        TextColor="Black" />
+                    <Label
+                        x:Name="CourseStartDateLabel"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontSize="18"
+                        TextColor="Black" />
+
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        HorizontalTextAlignment="End"
+                        Text="End Date:"
+                        TextColor="Black" />
+                    <Label
+                        x:Name="CourseEndDateLabel"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        FontSize="18"
+                        TextColor="Black" />
+
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        HorizontalTextAlignment="End"
+                        Text="Instructor:"
+                        TextColor="Black" />
+                    <Label
+                        x:Name="InstructorNameLabel"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        FontSize="18"
+                        TextColor="Black" />
+
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        HorizontalTextAlignment="End"
+                        Text="Phone:"
+                        TextColor="Black"
+                        VerticalTextAlignment="Center" />
+
+                    <Label
+                        x:Name="InstructorPhoneLabel"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        FontSize="18"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="1"
+                        TextColor="Black"
+                        VerticalTextAlignment="Center" />
+
+                    <ImageButton
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        Padding="0"
+                        Aspect="AspectFit"
+                        BackgroundColor="Transparent"
+                        Clicked="OnCallInstructorClicked"
+                        HeightRequest="24"
+                        HorizontalOptions="Center"
+                        Source="icon_call.png"
+                        VerticalOptions="Center"
+                        WidthRequest="24" />
+
+                    <Label
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        HorizontalTextAlignment="End"
+                        Text="Email:"
+                        TextColor="Black"
+                        VerticalTextAlignment="Center" />
+
+                    <Label
+                        x:Name="InstructorEmailLabel"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        FontSize="18"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="3"
+                        TextColor="Black"
+                        VerticalTextAlignment="Center" />
+
+                    <ImageButton
+                        Grid.Row="5"
+                        Grid.Column="2"
+                        Padding="0"
+                        Aspect="AspectFit"
+                        BackgroundColor="Transparent"
+                        Clicked="OnEmailInstructorClicked"
+                        HeightRequest="24"
+                        HorizontalOptions="Center"
+                        Source="icon_email.png"
+                        VerticalOptions="Center"
+                        WidthRequest="24" />
                 </Grid>
 
-                <Grid ColumnDefinitions="Auto,*"
-                      ColumnSpacing="12"
-                      RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
-                      Padding="6,0">
-
-                    <Label Grid.Row="0"
-                           Grid.Column="0"
-                           Text="Status:"
-                           FontSize="18"
-                           FontAttributes="Bold"
-                           TextColor="Black" />
-                    <Label Grid.Row="0"
-                           Grid.Column="1"
-                           x:Name="CourseStatusLabel"
-                           FontSize="18"
-                           TextColor="Black" />
-
-                    <Label Grid.Row="1"
-                           Grid.Column="0"
-                           Text="Start Date:"
-                           FontSize="18"
-                           FontAttributes="Bold"
-                           TextColor="Black" />
-                    <Label Grid.Row="1"
-                           Grid.Column="1"
-                           x:Name="CourseStartDateLabel"
-                           FontSize="18"
-                           TextColor="Black" />
-
-                    <Label Grid.Row="2"
-                           Grid.Column="0"
-                           Text="End Date:"
-                           FontSize="18"
-                           FontAttributes="Bold"
-                           TextColor="Black" />
-                    <Label Grid.Row="2"
-                           Grid.Column="1"
-                           x:Name="CourseEndDateLabel"
-                           FontSize="18"
-                           TextColor="Black" />
-
-                    <Label Grid.Row="3"
-                           Grid.Column="0"
-                           Text="Instructor:"
-                           FontSize="18"
-                           FontAttributes="Bold"
-                           TextColor="Black" />
-                    <Label Grid.Row="3"
-                           Grid.Column="1"
-                           x:Name="InstructorNameLabel"
-                           FontSize="18"
-                           TextColor="Black" />
-
-                    <Label Grid.Row="4"
-                           Grid.Column="0"
-                           Text="Phone:"
-                           FontSize="18"
-                           FontAttributes="Bold"
-                           TextColor="Black" />
-                    <Label Grid.Row="4"
-                           Grid.Column="1"
-                           x:Name="InstructorPhoneLabel"
-                           FontSize="18"
-                           TextColor="Black" />
-
-                    <Label Grid.Row="5"
-                           Grid.Column="0"
-                           Text="Email:"
-                           FontSize="18"
-                           FontAttributes="Bold"
-                           TextColor="Black" />
-                    <Label Grid.Row="5"
-                           Grid.Column="1"
-                           x:Name="InstructorEmailLabel"
-                           FontSize="18"
-                           TextColor="Black" />
-                </Grid>
-
-                <Border Stroke="Black"
-                        StrokeThickness="1"
-                        BackgroundColor="#F5F5F5"
-                        Padding="14">
+                <Border
+                    Padding="14"
+                    BackgroundColor="#F5F5F5"
+                    Stroke="Black"
+                    StrokeThickness="1">
 
                     <VerticalStackLayout Spacing="12">
 
                         <Grid ColumnDefinitions="*,Auto">
-                            <Label Text="Assessments"
-                                   FontSize="20"
-                                   FontAttributes="Bold"
-                                   TextColor="Black" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                Text="Assessments"
+                                TextColor="Black" />
 
-                            <ImageButton Grid.Column="1"
-                                         Source="icon_add.png"
-                                         BackgroundColor="Transparent"
-                                         WidthRequest="28"
-                                         HeightRequest="28"
-                                         Aspect="AspectFit"
-                                         Clicked="OnAddAssessmentClicked" />
+                            <ImageButton
+                                Grid.Column="1"
+                                Aspect="AspectFit"
+                                BackgroundColor="Transparent"
+                                Clicked="OnAddAssessmentClicked"
+                                HeightRequest="28"
+                                Source="icon_add.png"
+                                WidthRequest="28" />
                         </Grid>
 
-                        <CollectionView x:Name="AssessmentsCollectionView"
-                                        SelectionMode="None">
+                        <CollectionView x:Name="AssessmentsCollectionView" SelectionMode="None">
 
                             <CollectionView.EmptyView>
-                                <Label Text="No assessments yet."
-                                       FontSize="16"
-                                       TextColor="Black" />
+                                <Label
+                                    FontSize="16"
+                                    Text="No assessments yet."
+                                    TextColor="Black" />
                             </CollectionView.EmptyView>
 
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid ColumnDefinitions="*,Auto"
-                                          ColumnSpacing="12"
-                                          Padding="0,8">
+                                    <Grid
+                                        Padding="0,8"
+                                        ColumnDefinitions="*,Auto"
+                                        ColumnSpacing="12">
 
-                                        <VerticalStackLayout Grid.Column="0"
-                                            Spacing="2">
-                                            <Grid Grid.Column="0"
-                                                  ColumnDefinitions="*,Auto"
-                                                  ColumnSpacing="6">
+                                        <VerticalStackLayout Grid.Column="0" Spacing="2">
 
-                                                <Label Grid.Column="0"
-                                                   Text="{Binding Title}"
-                                                   FontSize="18"
-                                                   FontAttributes="Bold"
-                                                   TextColor="Black"
-                                                   LineBreakMode="TailTruncation"
-                                                   MaxLines="1"
-                                                   VerticalTextAlignment="Center" />
+                                            <HorizontalStackLayout
+                                                HorizontalOptions="Start"
+                                                Spacing="4"
+                                                VerticalOptions="Center">
 
-                                                <Image Grid.Column="1"
-                                                   Source="{Binding BellIconSource}"
-                                                   WidthRequest="22"
-                                                   HeightRequest="22"
-                                                   VerticalOptions="Center"
-                                                   Aspect="AspectFit" />
-                                            </Grid>
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    FontSize="18"
+                                                    LineBreakMode="TailTruncation"
+                                                    MaxLines="1"
+                                                    MaximumWidthRequest="210"
+                                                    Text="{Binding Title}"
+                                                    TextColor="Black"
+                                                    VerticalTextAlignment="Center" />
 
-                                            <Label Text="{Binding Type}"
-                                               FontSize="15"
-                                               TextColor="Black" />
+                                                <Image
+                                                    Aspect="AspectFit"
+                                                    HeightRequest="20"
+                                                    Source="{Binding BellIconSource}"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="20" />
+                                            </HorizontalStackLayout>
 
-                                            <Label Text="{Binding EndDate, StringFormat='Due: {0:MM/dd/yyyy}'}"
-                                               FontSize="15"
-                                               TextColor="Black" />
+                                            <Label
+                                                FontSize="15"
+                                                Text="{Binding Type}"
+                                                TextColor="Black" />
+
+                                            <Label
+                                                FontSize="15"
+                                                Text="{Binding EndDate, StringFormat='Due: {0:MM/dd/yyyy}'}"
+                                                TextColor="Black" />
                                         </VerticalStackLayout>
 
-                                        <ImageButton Grid.Column="1"
-                                                     Source="icon_edit.png"
-                                                     BackgroundColor="Transparent"
-                                                     WidthRequest="24"
-                                                     HeightRequest="24"
-                                                     Aspect="AspectFit"
-                                                     CommandParameter="{Binding Id}"
-                                                     Clicked="OnEditAssessmentClicked" />
+                                        <ImageButton
+                                            Grid.Column="1"
+                                            Aspect="AspectFit"
+                                            BackgroundColor="Transparent"
+                                            Clicked="OnEditAssessmentClicked"
+                                            CommandParameter="{Binding Id}"
+                                            HeightRequest="26"
+                                            Source="icon_edit.png"
+                                            WidthRequest="26" />
                                     </Grid>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
@@ -246,46 +319,51 @@
                     </VerticalStackLayout>
                 </Border>
 
-                <Border Stroke="Black"
-                        StrokeThickness="1"
-                        BackgroundColor="#F5F5F5"
-                        Padding="14">
+                <Border
+                    Padding="14"
+                    BackgroundColor="#F5F5F5"
+                    Stroke="Black"
+                    StrokeThickness="1">
 
                     <VerticalStackLayout Spacing="12">
 
                         <Grid ColumnDefinitions="*,Auto">
-                            <Label Text="Notes"
-                                   FontSize="20"
-                                   FontAttributes="Bold"
-                                   TextColor="Black" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                Text="Notes"
+                                TextColor="Black" />
 
-                            <ImageButton Grid.Column="1"
-                                         Source="icon_share.png"
-                                         BackgroundColor="Transparent"
-                                         WidthRequest="28"
-                                         HeightRequest="28"
-                                         Aspect="AspectFit"
-                                         Clicked="OnShareNotesClicked" />
+                            <ImageButton
+                                Grid.Column="1"
+                                Aspect="AspectFit"
+                                BackgroundColor="Transparent"
+                                Clicked="OnShareNotesClicked"
+                                HeightRequest="28"
+                                Source="icon_share.png"
+                                WidthRequest="28" />
                         </Grid>
 
-                        <Label x:Name="NotesLabel"
-                               FontSize="16"
-                               TextColor="Black"
-                               LineBreakMode="WordWrap" />
+                        <Label
+                            x:Name="NotesLabel"
+                            FontSize="16"
+                            LineBreakMode="WordWrap"
+                            TextColor="Black" />
                     </VerticalStackLayout>
                 </Border>
 
-                <Button Text="Delete Course"
-                        ImageSource="icon_delete.png"
-                        FontSize="16"
-                        HeightRequest="58"
-                        CornerRadius="16"
-                        BackgroundColor="#F5F5F5"
-                        TextColor="Black"
-                        BorderColor="Black"
-                        BorderWidth="2"
-                        Margin="0,12,0,0"
-                        Clicked="OnDeleteCourseClicked" />
+                <Button
+                    Margin="0,12,0,0"
+                    BackgroundColor="#F5F5F5"
+                    BorderColor="Black"
+                    BorderWidth="2"
+                    Clicked="OnDeleteCourseClicked"
+                    CornerRadius="16"
+                    FontSize="16"
+                    HeightRequest="58"
+                    ImageSource="icon_delete.png"
+                    Text="Delete Course"
+                    TextColor="Black" />
 
             </VerticalStackLayout>
         </ScrollView>

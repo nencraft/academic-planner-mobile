@@ -1,6 +1,7 @@
 using AcademicPlanner.Data;
 using AcademicPlanner.Models;
 using Microsoft.Maui.ApplicationModel.DataTransfer;
+using Microsoft.Maui.ApplicationModel;
 
 namespace AcademicPlanner.Views;
 
@@ -10,6 +11,7 @@ public partial class CourseOverviewPage : ContentPage
     private readonly AcademicPlannerDatabase _database;
     private int _courseId;
     private Course? _course;
+
 
     public string CourseId
     {
@@ -115,5 +117,24 @@ public partial class CourseOverviewPage : ContentPage
             return;
 
         await Shell.Current.GoToAsync($"{nameof(AssessmentEditPage)}?assessmentId={assessmentId}");
+    }
+    private async void OnHomeClicked(object? sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//TermsPage");
+    }
+    private async void OnCallInstructorClicked(object? sender, EventArgs e)
+    {
+        if (_course is null || string.IsNullOrWhiteSpace(_course.InstructorPhone))
+            return;
+
+        await Launcher.Default.OpenAsync(new Uri($"tel:{_course.InstructorPhone}"));
+    }
+
+    private async void OnEmailInstructorClicked(object? sender, EventArgs e)
+    {
+        if (_course is null || string.IsNullOrWhiteSpace(_course.InstructorEmail))
+            return;
+
+        await Launcher.Default.OpenAsync(new Uri($"mailto:{_course.InstructorEmail}"));
     }
 }

@@ -4,19 +4,9 @@ namespace AcademicPlanner;
 
 public partial class App : Application
 {
-    private readonly SeedDataService _seedDataService;
-
-    public App(SeedDataService seedDataService)
+    public App()
     {
         InitializeComponent();
-        _seedDataService = seedDataService;
-
-        _ = InitializeAsync();
-    }
-
-    private async Task InitializeAsync()
-    {
-        await _seedDataService.SeedAsync();
     }
 
     protected override Window CreateWindow(IActivationState? activationState)

@@ -196,4 +196,8 @@ public partial class AssessmentEditPage : ContentPage
     {
         await Shell.Current.GoToAsync($"{nameof(AssessmentEditPage)}?courseId={_courseId}");
     }
+    private async void OnHomeClicked(object? sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//TermsPage");
+    }
 }

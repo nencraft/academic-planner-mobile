@@ -1,21 +1,31 @@
 using AcademicPlanner.Data;
-using AcademicPlanner.Models;
+using AcademicPlanner.Services;
 
 namespace AcademicPlanner.Views;
 
 public partial class TermsPage : ContentPage
 {
     private readonly AcademicPlannerDatabase _database;
+    private readonly SeedDataService _seedDataService;
+    private bool _initialized;
 
-    public TermsPage(AcademicPlannerDatabase database)
+    public TermsPage(AcademicPlannerDatabase database, SeedDataService seedDataService)
     {
         InitializeComponent();
         _database = database;
+        _seedDataService = seedDataService;
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+
+        if (!_initialized)
+        {
+            _initialized = true;
+            await _seedDataService.SeedAsync();
+        }
+
         await LoadTermsAsync();
     }
 
@@ -40,5 +50,10 @@ public partial class TermsPage : ContentPage
     private async void OnBackClicked(object? sender, EventArgs e)
     {
         await Task.CompletedTask;
+    }
+
+    private async void OnHomeClicked(object? sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//TermsPage");
     }
 }

@@ -90,4 +90,8 @@ public partial class TermOverviewPage : ContentPage
 
         await Shell.Current.GoToAsync($"{nameof(CourseOverviewPage)}?courseId={courseId}");
     }
+    private async void OnHomeClicked(object? sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//TermsPage");
+    }
 }

@@ -106,4 +106,8 @@ public partial class TermEditPage : ContentPage
     {
         await Shell.Current.GoToAsync(nameof(TermEditPage));
     }
+    private async void OnHomeClicked(object? sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//TermsPage");
+    }
 }

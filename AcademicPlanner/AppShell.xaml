@@ -7,7 +7,7 @@
 
     <ShellContent
         Title="Terms"
-        Route="TermsPage"
-        ContentTemplate="{DataTemplate views:TermsPage}" />
+        ContentTemplate="{DataTemplate views:TermsPage}"
+        Route="TermsPage" />
 
 </Shell>

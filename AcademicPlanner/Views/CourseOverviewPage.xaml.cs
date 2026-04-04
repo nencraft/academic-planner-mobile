@@ -45,7 +45,7 @@ public partial class CourseOverviewPage : ContentPage
         if (_course is null)
             return;
 
-        CourseTitleLabel.Text = _course.Title;
+        BannerTitleLabel.Text = $"{_course.Title} Overview";
         CourseStatusLabel.Text = _course.Status;
         CourseStartDateLabel.Text = _course.StartDate.ToString("MM/dd/yyyy");
         CourseEndDateLabel.Text = _course.EndDate.ToString("MM/dd/yyyy");
@@ -56,9 +56,9 @@ public partial class CourseOverviewPage : ContentPage
             ? "No notes added."
             : _course.Notes;
 
-        CourseBellImage.Source = _course.AlertSetting == "None"
-            ? "icon_bell_inactive.png"
-            : "icon_bell_active.png";
+        BannerBellImage.Source = _course.AlertSetting == "None"
+            ? "icon_bell_inactive_white.png"
+            : "icon_bell_active_white.png";
 
         AssessmentsCollectionView.ItemsSource = await _database.GetAssessmentsByCourseAsync(_courseId);
     }

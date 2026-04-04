@@ -59,6 +59,7 @@
             Padding="0,8"
             BackgroundColor="#002f51"
             StrokeThickness="0">
+            
             <VerticalStackLayout Spacing="2">
                 <Label
                     x:Name="TermTitleLabel"
@@ -66,6 +67,7 @@
                     HorizontalOptions="Center"
                     HorizontalTextAlignment="Center"
                     Text="Term Overview"
+                    FontAttributes="Bold"
                     TextColor="White" />
                 <Label
                     x:Name="TermDatesLabel"
@@ -81,7 +83,7 @@
             Margin="0,16,0,8"
             BackgroundColor="#F5F5F5"
             BorderColor="Black"
-            BorderWidth="1"
+            BorderWidth="2"
             Clicked="OnAddCourseClicked"
             CornerRadius="16"
             FontSize="16"
@@ -120,6 +122,13 @@
                             HorizontalOptions="Center"
                             StrokeThickness="0"
                             WidthRequest="420">
+                            <Border.Shadow>
+                                <Shadow
+                                    Brush="#33000000"
+                                    Opacity="1"
+                                    Radius="10"
+                                    Offset="0,4" />
+                            </Border.Shadow>
 
                             <Grid ColumnDefinitions="*,70">
 

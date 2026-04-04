@@ -53,6 +53,7 @@
                 HorizontalOptions="Center"
                 Text="Add Assessment"
                 TextColor="White"
+                FontAttributes="Bold"
                 VerticalOptions="Center" />
         </Border>
 
@@ -62,6 +63,7 @@
                 <Grid
                     ColumnDefinitions="Auto,*"
                     ColumnSpacing="12"
+                    RowSpacing="12"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto">
 
                     <Label
@@ -210,7 +212,7 @@
                         HeightRequest="58"
                         HorizontalOptions="Fill"
                         ImageSource="icon_save.png"
-                        Text="Save Assessment"
+                        Text="Save"
                         TextColor="Black" />
 
                     <Button

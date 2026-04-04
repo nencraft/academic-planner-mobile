@@ -51,7 +51,8 @@
                 HorizontalOptions="Center"
                 Text="WGU Academic Planner"
                 TextColor="White"
-                VerticalOptions="Center" />
+                VerticalOptions="Center"
+                FontAttributes="Bold"/>
         </Border>
 
         <CollectionView
@@ -101,7 +102,7 @@
                                         FontAttributes="Bold"
                                         FontSize="28"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding Title}"
+                                        Text="{Binding DisplayTitle}"
                                         TextColor="Black" />
 
                                     <Label

@@ -84,6 +84,20 @@ namespace AcademicPlanner.Data
             }
         }
 
+        public async Task<Term?> GetOverlappingTermAsync(DateTime startDate, DateTime endDate, int currentTermId = 0)
+        {
+            await InitAsync();
+
+            var terms = await _database!
+                .Table<Term>()
+                .Where(t => t.Id != currentTermId)
+                .ToListAsync();
+
+            return terms.FirstOrDefault(t =>
+                startDate.Date < t.EndDate.Date &&
+                endDate.Date > t.StartDate.Date);
+        }
+
         // courses
         public async Task<int> SaveCourseAsync(Course course)
         {

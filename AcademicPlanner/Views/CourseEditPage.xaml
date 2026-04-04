@@ -53,7 +53,8 @@
                 HorizontalOptions="Center"
                 Text="Add Course"
                 TextColor="White"
-                VerticalOptions="Center" />
+                VerticalOptions="Center"
+                FontAttributes="Bold"/>
         </Border>
 
         <ScrollView Grid.Row="2">
@@ -62,6 +63,7 @@
                 <Grid
                     ColumnDefinitions="Auto,*"
                     ColumnSpacing="12"
+                    RowSpacing="12"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
 
                     <Label

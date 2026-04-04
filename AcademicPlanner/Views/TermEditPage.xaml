@@ -44,11 +44,13 @@
             BackgroundColor="#002f51"
             StrokeThickness="0">
             <Label
+                x:Name="BannerTitleLabel"
                 FontSize="22"
                 HorizontalOptions="Center"
-                Text="Add/Edit Term"
+                Text="Add Term"
                 TextColor="White"
-                VerticalOptions="Center" />
+                VerticalOptions="Center"
+                FontAttributes="Bold"/>
         </Border>
 
         <ScrollView Grid.Row="2">
@@ -57,6 +59,7 @@
                 <Grid
                     ColumnDefinitions="Auto,*"
                     ColumnSpacing="12"
+                    RowSpacing="12"
                     RowDefinitions="Auto,Auto,Auto">
 
                     <Label
@@ -79,7 +82,7 @@
                             BackgroundColor="Transparent"
                             ClearButtonVisibility="WhileEditing"
                             FontSize="18"
-                            Placeholder="Text box" />
+                            Placeholder="{StaticResource TitlePlaceholder}" />
                     </Border>
 
                     <Label
@@ -87,7 +90,7 @@
                         Grid.Column="0"
                         FontSize="20"
                         HorizontalTextAlignment="End"
-                        Text="StartDate:"
+                        Text="Start Date:"
                         VerticalTextAlignment="Center" />
 
                     <Border
@@ -119,7 +122,7 @@
                         Grid.Column="0"
                         FontSize="20"
                         HorizontalTextAlignment="End"
-                        Text="EndDate:"
+                        Text="End Date:"
                         VerticalTextAlignment="Center" />
 
                     <Border

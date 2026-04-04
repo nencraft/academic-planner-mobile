@@ -54,43 +54,40 @@
 
         <Border
             Grid.Row="1"
-            Padding="0,10"
+            Padding="16,10"
             BackgroundColor="#002f51"
             StrokeThickness="0">
-            <Label
-                FontSize="22"
-                HorizontalOptions="Center"
-                Text="Course Overview"
-                TextColor="White"
-                VerticalOptions="Center" />
+            <Grid
+                ColumnDefinitions="*,Auto"
+                ColumnSpacing="6"
+                HorizontalOptions="Center">
+
+                <Label
+                    x:Name="BannerTitleLabel"
+                    Grid.Column="0"
+                    FontAttributes="Bold"
+                    FontSize="22"
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="TailTruncation"
+                    MaxLines="2"
+                    MaximumWidthRequest="260"
+                    Text="Course Overview"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
+
+                <Image
+                    x:Name="BannerBellImage"
+                    Grid.Column="1"
+                    Aspect="AspectFit"
+                    HeightRequest="32"
+                    Source="icon_bell_inactive_white.png"
+                    VerticalOptions="Center"
+                    WidthRequest="32" />
+            </Grid>
         </Border>
 
         <ScrollView Grid.Row="2">
             <VerticalStackLayout Padding="22,22,22,30" Spacing="18">
-
-                <HorizontalStackLayout
-                    HorizontalOptions="Center"
-                    Spacing="4"
-                    VerticalOptions="Center">
-
-                    <Label
-                        x:Name="CourseTitleLabel"
-                        FontAttributes="Bold"
-                        FontSize="28"
-                        LineBreakMode="TailTruncation"
-                        MaxLines="1"
-                        MaximumWidthRequest="280"
-                        TextColor="Black"
-                        VerticalTextAlignment="Center" />
-
-                    <Image
-                        x:Name="CourseBellImage"
-                        Aspect="AspectFit"
-                        HeightRequest="32"
-                        Source="icon_bell_inactive.png"
-                        VerticalOptions="Center"
-                        WidthRequest="32" />
-                </HorizontalStackLayout>
 
                 <Grid
                     Padding="6,0"
@@ -295,10 +292,13 @@
                                                 FontSize="15"
                                                 Text="{Binding Type}"
                                                 TextColor="Black" />
-
                                             <Label
                                                 FontSize="15"
-                                                Text="{Binding EndDate, StringFormat='Due: {0:MM/dd/yyyy}'}"
+                                                Text="{Binding StartDate, StringFormat='Start: {0:MM/dd/yyyy}'}"
+                                                TextColor="Black" />
+                                            <Label
+                                                FontSize="15"
+                                                Text="{Binding EndDate, StringFormat='End: {0:MM/dd/yyyy}'}"
                                                 TextColor="Black" />
                                         </VerticalStackLayout>
 

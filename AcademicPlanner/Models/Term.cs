@@ -18,5 +18,20 @@ namespace AcademicPlanner.Models
         public DateTime StartDate { get; set; } = DateTime.Today;
 
         public DateTime EndDate { get; set; } = DateTime.Today;
+
+        [Ignore]
+        public string DisplayTitle
+        {
+            get
+            {
+                DateTime today = DateTime.Today;
+
+                bool isCurrent = today >= StartDate.Date && today <= EndDate.Date;
+
+                return isCurrent
+                    ? $"{Title} (Current)"
+                    : Title;
+            }
+        }
     }
 }

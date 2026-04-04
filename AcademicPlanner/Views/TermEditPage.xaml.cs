@@ -36,6 +36,7 @@ public partial class TermEditPage : ContentPage
         if (term is null)
             return;
 
+        BannerTitleLabel.Text = "Edit Term";
         TitleEntry.Text = term.Title;
         StartDatePicker.Date = term.StartDate;
         EndDatePicker.Date = term.EndDate;
@@ -55,6 +56,20 @@ public partial class TermEditPage : ContentPage
         if (StartDatePicker.Date > EndDatePicker.Date)
         {
             await DisplayAlert("Validation Error", "Start date cannot be after end date.", "OK");
+            return;
+        }
+
+        var overlappingTerm = await _database.GetOverlappingTermAsync(
+            StartDatePicker.Date,
+            EndDatePicker.Date,
+            _termId);
+
+        if (overlappingTerm is not null)
+        {
+            await DisplayAlert(
+                "Validation Error",
+                $"This term overlaps '{overlappingTerm.Title}'. Please choose a different date range.",
+                "OK");
             return;
         }
 

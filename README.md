@@ -1,6 +1,6 @@
-# AcademicPlanner
+# Academic Planner Pro
 
-AcademicPlanner is an Android mobile application built with .NET MAUI for students to track academic terms, courses, and assessments. The app allows users to create, edit, and delete terms, manage courses within each term, manage assessments within each course, view detailed course information, share course notes, and receive alerts for important dates.
+Academic Planner Pro is an Android mobile application built with .NET MAUI for students to track academic terms, courses, and assessments. The app allows users to create, edit, and delete terms, manage courses within each term, manage assessments within each course, view detailed course information, share course notes, and receive alerts for important dates.
 
 ## Overview
 

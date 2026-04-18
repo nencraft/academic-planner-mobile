@@ -37,7 +37,7 @@ public static class MauiProgram
         builder.Services.AddTransient<AssessmentEditPage>();
         builder.Services.AddTransient<SetupAccountPage>();
         builder.Services.AddTransient<LoginPage>();
-
+        builder.Services.AddTransient<SettingsPage>();
 
         return builder.Build();
     }

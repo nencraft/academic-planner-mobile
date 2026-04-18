@@ -26,13 +26,18 @@ public partial class SettingsPage : ContentPage
             ? "PIN unlock is currently enabled."
             : "PIN unlock is currently disabled.";
 
+        SavePinButton.Text = isEnabled
+            ? "Save New PIN"
+            : "Enable PIN Unlock";
+
+
         DisablePinButton.IsVisible = isEnabled;
-        EnablePinButton.IsVisible = true;
     }
 
-    private async void OnEnablePinClicked(object sender, EventArgs e)
+    private async void OnSavePinClicked(object sender, EventArgs e)
     {
         string pin = PinEntry.Text?.Trim() ?? string.Empty;
+        bool wasEnabled = await _authService.IsPinEnabledAsync();
 
         var result = await _authService.SetPinAsync(pin);
 
@@ -43,7 +48,12 @@ public partial class SettingsPage : ContentPage
         }
 
         PinEntry.Text = string.Empty;
-        await DisplayAlert("Success", "PIN unlock has been enabled.", "OK");
+
+        await DisplayAlert(
+            "Success",
+            wasEnabled ? "A new PIN has been saved." : "PIN unlock has been enabled.",
+            "OK");
+
         await RefreshUiAsync();
     }
 

@@ -21,9 +21,31 @@
                 MaxLength="4"
                 Placeholder="4-digit PIN" />
 
-            <Button Clicked="OnUnlockClicked" Text="Unlock" />
+            <Button
+                Margin="0,12,0,0"
+                BackgroundColor="#F5F5F5"
+                BorderColor="Black"
+                BorderWidth="2"
+                Clicked="OnUnlockClicked"
+                CornerRadius="16"
+                FontSize="16"
+                HeightRequest="58"
+                ImageSource="icon_unlock.png"
+                Text="Unlock"
+                TextColor="Black" />
 
-            <Button Clicked="OnUsePasswordClicked" Text="Use Password Instead" />
+            <Button
+                Margin="0,12,0,0"
+                BackgroundColor="#F5F5F5"
+                BorderColor="Black"
+                BorderWidth="2"
+                Clicked="OnUsePasswordClicked"
+                CornerRadius="16"
+                FontSize="16"
+                HeightRequest="58"
+                ImageSource="icon_password.png"
+                Text="Use Password Instead"
+                TextColor="Black" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

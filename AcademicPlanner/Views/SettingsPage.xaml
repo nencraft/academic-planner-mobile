@@ -10,9 +10,7 @@
             <Label
                 FontAttributes="Bold"
                 FontSize="28"
-                Text="Settings" />
-
-            <Label FontSize="18" Text="PIN Unlock" />
+                Text="Pin Unlock" />
 
             <Label
                 x:Name="PinStatusLabel"
@@ -25,17 +23,34 @@
                 MaxLength="4"
                 Placeholder="Enter 4-digit PIN" />
 
-            <Button
-                x:Name="EnablePinButton"
-                Clicked="OnEnablePinClicked"
-                Text="Enable PIN Unlock" />
 
+            <Button
+                x:Name="SavePinButton"
+                Margin="0,12,0,0"
+                BackgroundColor="#F5F5F5"
+                BorderColor="Black"
+                BorderWidth="2"
+                Clicked="OnSavePinClicked"
+                CornerRadius="16"
+                FontSize="16"
+                HeightRequest="58"
+                ImageSource="icon_save.png"
+                Text="Enable Pin Unlock"
+                TextColor="Black" />
             <Button
                 x:Name="DisablePinButton"
+                Margin="0,12,0,0"
+                BackgroundColor="#F5F5F5"
+                BorderColor="Black"
+                BorderWidth="2"
                 Clicked="OnDisablePinClicked"
-                Text="Disable PIN Unlock" />
+                CornerRadius="16"
+                FontSize="16"
+                HeightRequest="58"
+                ImageSource="icon_delete.png"
+                Text="Disable Pin Unlock"
+                TextColor="Black" />
 
-            <Button Clicked="OnBackClicked" Text="Back" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

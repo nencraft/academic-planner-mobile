@@ -7,7 +7,7 @@
     BackgroundColor="#EFEFEF"
     Shell.NavBarIsVisible="False">
 
-    <Grid RowDefinitions="Auto,Auto,*">
+    <Grid RowDefinitions="Auto,Auto,Auto,*">
 
         <Grid
             Padding="16,12,16,8"
@@ -29,8 +29,8 @@
 
             <ImageButton
                 Grid.Column="0"
-                Aspect="AspectFit"
                 Padding="0"
+                Aspect="AspectFit"
                 BackgroundColor="Transparent"
                 Clicked="OnSettingsClicked"
                 HeightRequest="48"
@@ -59,13 +59,24 @@
             BackgroundColor="#002f51"
             StrokeThickness="0">
             <Label
+                FontAttributes="Bold"
                 FontSize="22"
                 HorizontalOptions="Center"
                 Text="WGU Academic Planner"
                 TextColor="White"
-                VerticalOptions="Center"
-                FontAttributes="Bold"/>
+                VerticalOptions="Center" />
         </Border>
+
+        <HorizontalStackLayout
+            Grid.Row="2"
+            Padding="20,12"
+            HorizontalOptions="Center"
+            Spacing="12">
+
+            <Button Clicked="OnSearchClicked" Text="Search" />
+
+            <Button Clicked="OnReportsClicked" Text="Reports" />
+        </HorizontalStackLayout>
 
         <CollectionView
             x:Name="TermsCollectionView"

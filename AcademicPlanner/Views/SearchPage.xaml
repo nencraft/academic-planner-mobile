@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AcademicPlanner.Views.SearchPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:AcademicPlanner.Models"
+    Title="Search">
+
+    <VerticalStackLayout Padding="20" Spacing="16">
+        <Label
+            FontSize="28"
+            FontAttributes="Bold"
+            Text="Search" />
+
+        <Entry
+            x:Name="SearchEntry"
+            Placeholder="Search terms, courses, or assessments" />
+
+        <Button
+            Text="Search"
+            Clicked="OnSearchClicked" />
+
+        <CollectionView x:Name="ResultsCollectionView" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:PlannerItem">
+                    <Border
+                        Margin="0,6"
+                        Padding="12"
+                        BackgroundColor="#F5F5F5"
+                        StrokeThickness="0">
+                        <VerticalStackLayout Spacing="6">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                Text="{Binding Title}" />
+
+                            <Label
+                                FontSize="14"
+                                Text="{Binding ItemType}" />
+
+                            <Label
+                                FontSize="14"
+                                Text="{Binding Subtitle}" />
+
+                            <Button
+                                Text="Open"
+                                Clicked="OnOpenResultClicked"
+                                CommandParameter="{Binding NavigationRoute}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

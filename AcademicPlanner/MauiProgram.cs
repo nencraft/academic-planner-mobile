@@ -28,6 +28,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<SeedDataService>();
         builder.Services.AddSingleton<HashingService>();
         builder.Services.AddSingleton<AuthenticationService>();
+        builder.Services.AddSingleton<SearchService>();
 
         builder.Services.AddTransient<TermsPage>();
         builder.Services.AddTransient<TermEditPage>();
@@ -39,6 +40,7 @@ public static class MauiProgram
         builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<SettingsPage>();
         builder.Services.AddTransient<PinUnlockPage>();
+        builder.Services.AddTransient<SearchPage>();
 
         return builder.Build();
     }

@@ -46,9 +46,7 @@
             Padding="16,10"
             BackgroundColor="#002f51"
             StrokeThickness="0">
-            <Grid
-                ColumnDefinitions="*"
-                HorizontalOptions="Center">
+            <Grid ColumnDefinitions="*" HorizontalOptions="Center">
 
                 <Label
                     x:Name="BannerTitleLabel"
@@ -64,64 +62,68 @@
             </Grid>
         </Border>
 
-        <VerticalStackLayout
-            Grid.Row="2"
-            Padding="20"
-            Spacing="16">
+        <Grid
+    Grid.Row="2"
+    Padding="20"
+    RowDefinitions="Auto,Auto,*"
+    RowSpacing="16">
 
             <Entry
-                x:Name="SearchEntry"
-                Placeholder="Search terms, courses, or assessments" />
+        x:Name="SearchEntry"
+        Grid.Row="0"
+        Placeholder="Search terms, courses, or assessments" />
 
             <Button
-                    Margin="0,12,0,0"
-                    BackgroundColor="#F5F5F5"
-                    BorderColor="Black"
-                    BorderWidth="2"
-                    Clicked="OnSearchClicked"
-                    CornerRadius="16"
-                    FontSize="16"
-                    HeightRequest="58"
-                    ImageSource="icon_search.png"
-                    Text="Search"
-                    TextColor="Black"
-                    WidthRequest="220"/>
+        Grid.Row="1"
+        Margin="60,12,60,0"
+        BackgroundColor="#F5F5F5"
+        BorderColor="Black"
+        BorderWidth="2"
+        Clicked="OnSearchClicked"
+        CornerRadius="16"
+        FontSize="16"
+        HeightRequest="58"
+        ImageSource="icon_search.png"
+        Text="Search"
+        TextColor="Black"
+        HorizontalOptions="Fill" />
 
             <CollectionView
-                x:Name="ResultsCollectionView"
-                SelectionMode="None">
+        x:Name="ResultsCollectionView"
+        Grid.Row="2"
+        SelectionMode="None">
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:PlannerItem">
                         <Border
-                            Margin="0,6"
-                            Padding="12"
-                            BackgroundColor="#F5F5F5"
-                            StrokeThickness="0">
+                    Margin="0,6"
+                    Padding="12"
+                    BackgroundColor="#F5F5F5"
+                    StrokeThickness="0">
 
                             <VerticalStackLayout Spacing="6">
                                 <Label
-                                    FontAttributes="Bold"
-                                    FontSize="18"
-                                    Text="{Binding Title}" />
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            Text="{Binding Title}" />
 
                                 <Label
-                                    FontSize="14"
-                                    Text="{Binding ItemType}" />
+                            FontSize="14"
+                            Text="{Binding ItemType}" />
 
                                 <Label
-                                    FontSize="14"
-                                    Text="{Binding Subtitle}" />
+                            FontSize="14"
+                            Text="{Binding Subtitle}" />
 
                                 <Button
-                                    Text="Open"
-                                    Clicked="OnOpenResultClicked"
-                                    CommandParameter="{Binding NavigationRoute}" />
+                            Text="Open"
+                            Clicked="OnOpenResultClicked"
+                            CommandParameter="{Binding NavigationRoute}" />
                             </VerticalStackLayout>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </VerticalStackLayout>
+        </Grid>
     </Grid>
 </ContentPage>

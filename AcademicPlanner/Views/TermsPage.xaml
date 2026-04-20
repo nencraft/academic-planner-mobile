@@ -131,9 +131,9 @@
                         <Border
                             Padding="18"
                             BackgroundColor="#F5F5F5"
-                            HorizontalOptions="Center"
-                            StrokeThickness="0"
-                            WidthRequest="480">
+                            HorizontalOptions="Fill"
+                            Margin="16,0"
+                            StrokeThickness="0">
                             <Border.Shadow>
                                 <Shadow
                                     Brush="#33000000"
@@ -142,7 +142,7 @@
                                     Offset="0,4" />
                             </Border.Shadow>
 
-                            <Grid ColumnDefinitions="*,70" VerticalOptions="Center">
+                            <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
 
                                 <VerticalStackLayout
                                     Grid.Column="0"
@@ -179,7 +179,6 @@
                                     HeightRequest="56"
                                     HorizontalOptions="Center"
                                     Source="icon_expand.png"
-                                    TranslationX="-15"
                                     VerticalOptions="Center"
                                     WidthRequest="56" />
 

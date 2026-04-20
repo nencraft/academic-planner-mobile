@@ -14,7 +14,7 @@ public class CoursePlannerItem : PlannerItem
 
     public override string ItemType => "Course";
 
-    public override string Subtitle => $"Instructor: {InstructorName} | Status: {StatusValue}";
+    public override string Subtitle => $"{StatusValue} | Instructor {InstructorName}";
 
     public override string NavigationRoute => $"{nameof(Views.CourseOverviewPage)}?courseId={SourceId}";
 

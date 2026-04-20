@@ -80,7 +80,7 @@
         </Border>
         <Button
             Grid.Row="2"
-            Margin="0,16,0,8"
+            Margin="100,12,100,20"
             BackgroundColor="#F5F5F5"
             BorderColor="Black"
             BorderWidth="2"
@@ -88,11 +88,10 @@
             CornerRadius="16"
             FontSize="16"
             HeightRequest="58"
-            HorizontalOptions="Center"
+            HorizontalOptions="Fill"
             ImageSource="icon_add.png"
             Text="Add Course"
-            TextColor="Black"
-            WidthRequest="220" />
+            TextColor="Black" />
 
         <CollectionView
             x:Name="CoursesCollectionView"
@@ -119,9 +118,9 @@
                         <Border
                             Padding="16"
                             BackgroundColor="#F5F5F5"
-                            HorizontalOptions="Center"
+                            HorizontalOptions="Fill"
                             StrokeThickness="0"
-                            WidthRequest="420">
+                            Margin="16,0">
                             <Border.Shadow>
                                 <Shadow
                                     Brush="#33000000"
@@ -172,7 +171,7 @@
 
         <Button
             Grid.Row="4"
-            Margin="0,12,0,20"
+            Margin="100,12,100,20"
             BackgroundColor="#F5F5F5"
             BorderColor="Black"
             BorderWidth="2"
@@ -180,11 +179,10 @@
             CornerRadius="16"
             FontSize="16"
             HeightRequest="58"
-            HorizontalOptions="Center"
+            HorizontalOptions="Fill"
             ImageSource="icon_delete.png"
             Text="Delete Term"
-            TextColor="Black"
-            WidthRequest="220" />
+            TextColor="Black" />
 
     </Grid>
 </ContentPage>

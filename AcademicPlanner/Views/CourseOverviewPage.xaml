@@ -275,7 +275,6 @@
                                                     FontSize="18"
                                                     LineBreakMode="TailTruncation"
                                                     MaxLines="1"
-                                                    MaximumWidthRequest="210"
                                                     Text="{Binding Title}"
                                                     TextColor="Black"
                                                     VerticalTextAlignment="Center" />
@@ -353,7 +352,7 @@
                 </Border>
 
                 <Button
-                    Margin="0,12,0,0"
+                    Margin="60,12,60,20"
                     BackgroundColor="#F5F5F5"
                     BorderColor="Black"
                     BorderWidth="2"
@@ -361,10 +360,10 @@
                     CornerRadius="16"
                     FontSize="16"
                     HeightRequest="58"
+                    HorizontalOptions="Fill"
                     ImageSource="icon_delete.png"
                     Text="Delete Course"
-                    TextColor="Black"
-                    WidthRequest="220" />
+                    TextColor="Black" />
 
             </VerticalStackLayout>
         </ScrollView>

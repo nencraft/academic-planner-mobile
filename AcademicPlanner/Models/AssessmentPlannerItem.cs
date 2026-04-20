@@ -14,7 +14,7 @@ public class AssessmentPlannerItem : PlannerItem
 
     public override string ItemType => "Assessment";
 
-    public override string Subtitle => $"{AssessmentType} | Course: {ParentCourseTitle}";
+    public override string Subtitle => $"{AssessmentType} assessment for {ParentCourseTitle}";
 
     public override string NavigationRoute => $"{nameof(Views.AssessmentEditPage)}?assessmentId={SourceId}";
 

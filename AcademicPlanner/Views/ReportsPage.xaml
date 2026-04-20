@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AcademicPlanner.Views.ReportsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:AcademicPlanner.Models"
+    BackgroundColor="#EFEFEF"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <Grid
+            Grid.Row="0"
+            Padding="16,12,16,8"
+            BackgroundColor="White"
+            ColumnDefinitions="56,*,56"
+            ColumnSpacing="16">
+
+            <ImageButton
+                Grid.Column="0"
+                Padding="0"
+                Aspect="AspectFit"
+                BackgroundColor="Transparent"
+                Clicked="OnBackClicked"
+                HeightRequest="48"
+                HorizontalOptions="Center"
+                Source="icon_back.png"
+                VerticalOptions="Center"
+                WidthRequest="48" />
+
+            <ImageButton
+                Grid.Column="1"
+                Padding="0"
+                Aspect="AspectFit"
+                BackgroundColor="Transparent"
+                Clicked="OnHomeClicked"
+                HeightRequest="56"
+                HorizontalOptions="Center"
+                Source="wgu_owl.png"
+                VerticalOptions="Center"
+                WidthRequest="56" />
+        </Grid>
+
+        <Border
+            Grid.Row="1"
+            Padding="16,10"
+            BackgroundColor="#002f51"
+            StrokeThickness="0">
+            <Grid ColumnDefinitions="*" HorizontalOptions="Center">
+
+                <Label
+                    x:Name="BannerTitleLabel"
+                    FontAttributes="Bold"
+                    FontSize="22"
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="TailTruncation"
+                    MaxLines="2"
+                    MaximumWidthRequest="260"
+                    Text="Reports"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
+            </Grid>
+        </Border>
+
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout Padding="20" Spacing="16">
+
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="28"
+                    HorizontalTextAlignment="Center"
+                    Text="Upcoming Academic Activity Report" />
+
+                <Label
+    x:Name="TimestampLabel"
+    FontSize="14"
+    TextColor="Gray" />
+
+                <Button
+    Text="Export Report"
+    Clicked="OnExportReportClicked" />
+
+                <CollectionView x:Name="ReportCollectionView" SelectionMode="None">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:ReportRow">
+                            <Border
+                                Margin="0,6"
+                                Padding="14"
+                                BackgroundColor="#F5F5F5"
+                                StrokeThickness="0">
+
+                                <VerticalStackLayout Spacing="10">
+
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="18"
+                                        Text="{Binding Title}" />
+
+                                    <Grid
+                                        ColumnDefinitions="Auto,*"
+                                        ColumnSpacing="12"
+                                        RowDefinitions="Auto,Auto,Auto,Auto, Auto"
+                                        RowSpacing="6">
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            FontAttributes="Bold"
+                                            HorizontalTextAlignment="End"
+                                            Text="Type:" />
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Text="{Binding ItemType}" />
+
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            FontAttributes="Bold"
+                                            HorizontalTextAlignment="End"
+                                            Text="Context:" />
+
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Text="{Binding Context}" />
+
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.Column="0"
+                                            FontAttributes="Bold"
+                                            HorizontalTextAlignment="End"
+                                            Text="Start:" />
+
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            Text="{Binding StartDate}" />
+
+                                        <Label
+                                            Grid.Row="3"
+                                            Grid.Column="0"
+                                            FontAttributes="Bold"
+                                            HorizontalTextAlignment="End"
+                                            Text="End:" />
+
+                                        <Label
+                                            Grid.Row="3"
+                                            Grid.Column="1"
+                                            Text="{Binding EndDate}" />
+                                        <Label
+                                            Grid.Row="4"
+                                            Grid.Column="0"
+                                            FontAttributes="Bold"
+                                            HorizontalTextAlignment="End"
+                                            Text="Status:" />
+
+                                        <Label
+                                            Grid.Row="5"
+                                            Grid.Column="1"
+                                            Text="{Binding Status}" />
+                                    </Grid>
+
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12" />
+
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

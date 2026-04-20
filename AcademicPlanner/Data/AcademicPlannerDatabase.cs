@@ -290,5 +290,24 @@ namespace AcademicPlanner.Data
                 SortOrder = sortOrder
             });
         }
+
+        // helper queries
+        public async Task<List<Course>> GetAllCoursesAsync()
+        {
+            await InitAsync();
+            return await _database!
+                .Table<Course>()
+                .OrderBy(c => c.StartDate)
+                .ToListAsync();
+        }
+
+        public async Task<List<Assessment>> GetAllAssessmentsAsync()
+        {
+            await InitAsync();
+            return await _database!
+                .Table<Assessment>()
+                .OrderBy(a => a.StartDate)
+                .ToListAsync();
+        }
     }
 }

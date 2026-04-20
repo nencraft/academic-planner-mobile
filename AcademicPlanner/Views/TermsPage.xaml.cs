@@ -61,4 +61,14 @@ public partial class TermsPage : ContentPage
     {
         await Shell.Current.GoToAsync(nameof(SettingsPage));
     }
+
+    private async void OnSearchClicked(object? sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(SearchPage));
+    }
+
+    private async void OnReportsClicked(object? sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(ReportsPage));
+    }
 }

@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Academic Planner Pro</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <header class="hero">
+            <nav class="topbar">
+                <div class="brand">
+                    <span class="brand-title">Academic Planner Pro</span>
+                    <span class="brand-subtitle">Capstone Project Site</span>
+                </div>
+
+                <a
+                    class="topbar-button"
+                    href="https://github.com/nencraft/academic-planner-pro"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    View Source
+                </a>
+            </nav>
+
+            <div class="hero-content">
+                <div>
+                    <p class="eyebrow">Mobile Academic Planning App</p>
+                    <h1>
+                        Organize terms, courses, assessments, and deadlines in
+                        one place.
+                    </h1>
+                    <p class="lead">
+                        Academic Planner Pro is a .NET MAUI Android application
+                        built for students who need a focused, mobile-first way
+                        to manage academic work.
+                    </p>
+
+                    <div class="cta-row">
+                        <a
+                            class="btn primary"
+                            href="https://github.com/nencraft/academic-planner-pro/releases/"
+                            >Download APK</a
+                        >
+                        <a class="btn secondary" href="#features"
+                            >See Features</a
+                        >
+                    </div>
+
+                    <p class="fine-print">
+                        Android may prompt you to allow installation from your
+                        browser or downloads app before installing the APK.
+                    </p>
+                </div>
+
+                <div class="device-card">
+                    <div class="screen screenshot-frame">
+                        <div class="screen-bar"></div>
+
+                        <div class="carousel" id="appCarousel">
+                            <button
+                                class="carousel-arrow left"
+                                aria-label="Previous screenshot"
+                                onclick="moveSlide(-1)"
+                            >
+                                &#10094;
+                            </button>
+
+                            <div class="carousel-track">
+                                <img
+                                    class="carousel-image active"
+                                    src="assets/screenshots/course-overview.png"
+                                    alt="Course Overview Page"
+                                />
+                                <img
+                                    class="carousel-image"
+                                    src="assets/screenshots/term-overview.png"
+                                    alt="Term Overview Page"
+                                />
+                                <img
+                                    class="carousel-image"
+                                    src="assets/screenshots/search-page.png"
+                                    alt="Search Page"
+                                />
+                                <img
+                                    class="carousel-image"
+                                    src="assets/screenshots/term-page.png"
+                                    alt="Term Page"
+                                />
+                            </div>
+
+                            <button
+                                class="carousel-arrow right"
+                                aria-label="Next screenshot"
+                                onclick="moveSlide(1)"
+                            >
+                                &#10095;
+                            </button>
+
+                            <div class="carousel-dots">
+                                <button
+                                    class="carousel-dot active"
+                                    aria-label="Go to screenshot 1"
+                                    onclick="goToSlide(0)"
+                                ></button>
+                                <button
+                                    class="carousel-dot"
+                                    aria-label="Go to screenshot 2"
+                                    onclick="goToSlide(1)"
+                                ></button>
+                                <button
+                                    class="carousel-dot"
+                                    aria-label="Go to screenshot 3"
+                                    onclick="goToSlide(2)"
+                                ></button>
+                                <button
+                                    class="carousel-dot"
+                                    aria-label="Go to screenshot 4"
+                                    onclick="goToSlide(3)"
+                                ></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section id="features" class="section">
+                <h2>Core Features</h2>
+                <div class="grid three">
+                    <article class="card">
+                        <h3>Secure Access</h3>
+                        <p>
+                            Username and password authentication with optional
+                            PIN unlock for faster return access on the same
+                            device.
+                        </p>
+                    </article>
+                    <article class="card">
+                        <h3>Academic Tracking</h3>
+                        <p>
+                            Create terms, courses, and assessments with dates,
+                            notes, instructor details, and alert settings.
+                        </p>
+                    </article>
+                    <article class="card">
+                        <h3>Search & Reporting</h3>
+                        <p>
+                            Search existing records and view an onscreen report
+                            with a title, timestamp, and multiple rows of
+                            academic activity.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section alt">
+                <h2>What the App Includes</h2>
+                <div class="grid two">
+                    <div class="card">
+                        <ul class="feature-list">
+                            <li>Term, course, and assessment management</li>
+                            <li>
+                                Validation for dates, required fields, and
+                                instructor email
+                            </li>
+                            <li>Database-driven status and alert options</li>
+                            <li>
+                                Search results across terms, courses, and
+                                assessments
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <ul class="feature-list">
+                            <li>Upcoming academic activity report</li>
+                            <li>Local SQLite data storage</li>
+                            <li>Optional PIN quick unlock</li>
+                            <li>
+                                Android APK distribution through GitHub Releases
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Installation</h2>
+                <ol class="steps">
+                    <li>Tap <strong>Download APK</strong>.</li>
+                    <li>
+                        Allow the APK file to download to your Android device.
+                    </li>
+                    <li>
+                        Open the file and allow installation from the current
+                        source if Android prompts you.
+                    </li>
+                    <li>Install and launch Academic Planner Pro.</li>
+                    <li>
+                        Create an account on first launch, then log in to begin
+                        using the app.
+                    </li>
+                </ol>
+            </section>
+
+            <section class="section alt">
+                <h2>Project Links</h2>
+                <div class="grid two">
+                    <a
+                        class="card link-card"
+                        href="https://github.com/YOUR-USERNAME/YOUR-REPO"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <h3>GitHub Repository</h3>
+                        <p>Source code, issue history, and release assets.</p>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>
+                Academic Planner Pro • Capstone project site hosted on GitHub
+                Pages
+            </p>
+        </footer>
+        <script>
+            let currentSlide = 0;
+
+            const slides = () =>
+                Array.from(document.querySelectorAll(".carousel-image"));
+            const dots = () =>
+                Array.from(document.querySelectorAll(".carousel-dot"));
+
+            function showSlide(index) {
+                const allSlides = slides();
+                const allDots = dots();
+
+                if (!allSlides.length) return;
+
+                if (index < 0) index = allSlides.length - 1;
+                if (index >= allSlides.length) index = 0;
+
+                allSlides.forEach((slide) => slide.classList.remove("active"));
+                allDots.forEach((dot) => dot.classList.remove("active"));
+
+                allSlides[index].classList.add("active");
+                allDots[index].classList.add("active");
+
+                currentSlide = index;
+            }
+
+            function moveSlide(direction) {
+                showSlide(currentSlide + direction);
+            }
+
+            function goToSlide(index) {
+                showSlide(index);
+            }
+        </script>
+        <script>
+            setInterval(() => {
+                moveSlide(1);
+            }, 5000);
+        </script>
+    </body>
+</html>

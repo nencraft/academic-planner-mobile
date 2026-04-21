@@ -77,4 +77,18 @@ public partial class SettingsPage : ContentPage
     {
         await Shell.Current.GoToAsync("..");
     }
+
+    private async void OnLogoutClicked(object sender, EventArgs e)
+    {
+        bool confirm = await DisplayAlert(
+            "Log Out",
+            "Are you sure you want to log out?",
+            "Yes",
+            "No");
+
+        if (!confirm)
+            return;
+
+        Application.Current!.Windows[0].Page = new LoginPage(_authService);
+    }
 }

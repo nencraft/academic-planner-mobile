@@ -51,6 +51,10 @@
                 Text="Disable Pin Unlock"
                 TextColor="Black" />
 
+            <Button
+    Text="Log Out"
+    Clicked="OnLogoutClicked" />
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

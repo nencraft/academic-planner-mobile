@@ -15,11 +15,13 @@ public static class ValidationHelper
         return !string.IsNullOrWhiteSpace(value);
     }
 
+    // date validation
     public static bool DatesAreValid(DateTime start, DateTime end)
     {
         return start <= end;
     }
 
+    // email validation
     public static bool IsValidEmail(string? email)
     {
         if (string.IsNullOrWhiteSpace(email))
@@ -30,6 +32,7 @@ public static class ValidationHelper
             @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
             RegexOptions.IgnoreCase);
     }
+    // assessment validation
     public static bool CanAddAnotherAssessment(List<Assessment> assessments)
     {
         return assessments.Count < 2;

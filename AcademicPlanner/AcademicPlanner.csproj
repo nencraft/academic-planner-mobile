@@ -20,10 +20,10 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>AcademicPlanner</ApplicationTitle>
+		<ApplicationTitle>Academic Planner Pro</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.academicplanner</ApplicationId>
+		<ApplicationId>com.companyname.academicplannerpro</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>

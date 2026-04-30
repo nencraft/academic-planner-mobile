@@ -10,82 +10,25 @@ namespace AcademicPlanner.Services;
 
 public class ReportService
 {
-    private readonly AcademicPlannerDatabase _database;
+    private readonly PlannerItemService _plannerItemService;
 
-    public ReportService(AcademicPlannerDatabase database)
+    public ReportService(PlannerItemService plannerItemService)
     {
-        _database = database;
+        _plannerItemService = plannerItemService;
     }
 
     public async Task<List<ReportRow>> GetUpcomingAcademicActivityReportAsync()
     {
-        var plannerItems = await BuildValidPlannerItemsAsync();
-
+        var plannerItems = await _plannerItemService.GetPlannerItemsAsync();
         DateTime today = DateTime.Today;
 
         return plannerItems
-            .Where(i => i.EndDate.Date >= today) // keeps current and upcoming items
-            .OrderBy(i => i.StartDate)
-            .Select(i => i.ToReportRow())
+            .Where(item => item.EndDate.Date >= today)
+            .OrderBy(item => item.StartDate)
+            .Select(item => item.ToReportRow())
             .ToList();
     }
 
-    private async Task<List<PlannerItem>> BuildValidPlannerItemsAsync()
-    {
-        var terms = await _database.GetTermsAsync();
-        var courses = await _database.GetAllCoursesAsync();
-        var assessments = await _database.GetAllAssessmentsAsync();
-
-        var validTermIds = terms
-            .Select(t => t.Id)
-            .ToHashSet();
-
-        var validCourses = courses
-            .Where(c => validTermIds.Contains(c.TermId))
-            .ToList();
-
-        var validCourseIds = validCourses
-            .Select(c => c.Id)
-            .ToHashSet();
-
-        var validAssessments = assessments
-            .Where(a => validCourseIds.Contains(a.CourseId))
-            .ToList();
-
-        var courseMap = validCourses.ToDictionary(c => c.Id, c => c.Title);
-
-        var plannerItems = new List<PlannerItem>();
-
-        plannerItems.AddRange(terms.Select(t => new TermPlannerItem
-        {
-            SourceId = t.Id,
-            Title = t.Title,
-            StartDate = t.StartDate,
-            EndDate = t.EndDate
-        }));
-
-        plannerItems.AddRange(validCourses.Select(c => new CoursePlannerItem
-        {
-            SourceId = c.Id,
-            Title = c.Title,
-            StartDate = c.StartDate,
-            EndDate = c.EndDate,
-            StatusValue = c.Status,
-            InstructorName = c.InstructorName
-        }));
-
-        plannerItems.AddRange(validAssessments.Select(a => new AssessmentPlannerItem
-        {
-            SourceId = a.Id,
-            Title = a.Title,
-            StartDate = a.StartDate,
-            EndDate = a.EndDate,
-            AssessmentType = a.Type,
-            ParentCourseTitle = courseMap[a.CourseId]
-        }));
-
-        return plannerItems;
-    }
     public async Task<string> ExportReportRowsToCsvAsync(IEnumerable<ReportRow> rows)
     {
         var safeRows = rows?.ToList() ?? new List<ReportRow>();
@@ -94,12 +37,20 @@ public class ReportService
         string fileName = $"upcoming-academic-activity-report-{timestamp}.csv";
         string filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
 
+        string csv = BuildCsv(safeRows);
+
+        await File.WriteAllTextAsync(filePath, csv);
+
+        return filePath;
+    }
+
+    public static string BuildCsv(IEnumerable<ReportRow> rows)
+    {
         var sb = new StringBuilder();
 
-        // header row
         sb.AppendLine("Type,Title,Context,Start Date,End/Due Date,Status");
 
-        foreach (var row in safeRows)
+        foreach (var row in rows)
         {
             sb.Append(EscapeCsv(row.ItemType)).Append(",");
             sb.Append(EscapeCsv(row.Title)).Append(",");
@@ -109,11 +60,10 @@ public class ReportService
             sb.Append(EscapeCsv(row.Status)).AppendLine();
         }
 
-        await File.WriteAllTextAsync(filePath, sb.ToString());
-
-        return filePath;
+        return sb.ToString();
     }
-    private static string EscapeCsv(string? value)
+
+    public static string EscapeCsv(string? value)
     {
         value ??= string.Empty;
 
@@ -125,5 +75,4 @@ public class ReportService
 
         return value;
     }
-
 }

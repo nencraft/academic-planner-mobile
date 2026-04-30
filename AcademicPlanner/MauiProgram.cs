@@ -28,6 +28,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<SeedDataService>();
         builder.Services.AddSingleton<HashingService>();
         builder.Services.AddSingleton<AuthenticationService>();
+        builder.Services.AddSingleton<PlannerItemService>();
         builder.Services.AddSingleton<SearchService>();
         builder.Services.AddSingleton<ReportService>();
 

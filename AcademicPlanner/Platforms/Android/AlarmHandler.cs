@@ -20,7 +20,14 @@ public class AlarmHandler : BroadcastReceiver
             NotificationManagerService manager =
                 NotificationManagerService.Instance ?? new NotificationManagerService();
 
-            manager.Show(title ?? "Reminder", message ?? string.Empty);
+            int notificationId = intent.GetIntExtra(NotificationManagerService.NotificationIdKey, 0);
+
+            if (notificationId == 0)
+            {
+                notificationId = DateTime.Now.GetHashCode();
+            }
+
+            manager.Show(notificationId, title ?? "Reminder", message ?? string.Empty);
         }
     }
 }

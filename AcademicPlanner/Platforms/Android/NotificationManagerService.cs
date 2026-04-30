@@ -14,11 +14,9 @@ public class NotificationManagerService : INotificationManagerService
 
     public const string TitleKey = "title";
     public const string MessageKey = "message";
+    public const string NotificationIdKey = "notificationId";
 
     private bool _channelInitialized;
-    private int _messageId = 1000;
-    private int _pendingIntentId = 2000;
-
     private NotificationManagerCompat? _compatManager;
 
     public event EventHandler? NotificationReceived;
@@ -27,41 +25,37 @@ public class NotificationManagerService : INotificationManagerService
 
     public NotificationManagerService()
     {
-        if (Instance is null)
-        {
-            CreateNotificationChannel();
-            _compatManager = NotificationManagerCompat.From(Platform.AppContext);
-            Instance = this;
-        }
-        else
-        {
-            _compatManager = NotificationManagerCompat.From(Platform.AppContext);
-        }
+        CreateNotificationChannel();
+        _compatManager = NotificationManagerCompat.From(Platform.AppContext);
+        Instance = this;
     }
 
-    public void SendNotification(string title, string message, DateTime? notifyTime = null)
+    public void SendNotification(int id, string title, string message, DateTime? notifyTime = null)
     {
         if (!_channelInitialized)
+        {
             CreateNotificationChannel();
+        }
 
         if (notifyTime is null)
         {
-            Show(title, message);
+            Show(id, title, message);
             return;
         }
 
         Intent intent = new Intent(Platform.AppContext, typeof(AlarmHandler));
+        intent.PutExtra(NotificationIdKey, id);
         intent.PutExtra(TitleKey, title);
         intent.PutExtra(MessageKey, message);
         intent.SetFlags(ActivityFlags.SingleTop | ActivityFlags.ClearTop);
 
-        var pendingIntentFlags = Build.VERSION.SdkInt >= BuildVersionCodes.S
+        PendingIntentFlags pendingIntentFlags = Build.VERSION.SdkInt >= BuildVersionCodes.S
             ? PendingIntentFlags.CancelCurrent | PendingIntentFlags.Immutable
             : PendingIntentFlags.CancelCurrent;
 
         PendingIntent? pendingIntent = PendingIntent.GetBroadcast(
             Platform.AppContext,
-            _pendingIntentId++,
+            id,
             intent,
             pendingIntentFlags);
 
@@ -69,10 +63,41 @@ public class NotificationManagerService : INotificationManagerService
             Platform.AppContext.GetSystemService(Context.AlarmService) as AlarmManager;
 
         if (alarmManager is null || pendingIntent is null)
+        {
             return;
+        }
 
         long triggerTime = GetNotifyTime(notifyTime.Value);
         alarmManager.Set(AlarmType.RtcWakeup, triggerTime, pendingIntent);
+    }
+
+    public void CancelNotification(int id)
+    {
+        _compatManager ??= NotificationManagerCompat.From(Platform.AppContext);
+        _compatManager.Cancel(id);
+
+        Intent intent = new Intent(Platform.AppContext, typeof(AlarmHandler));
+
+        PendingIntentFlags pendingIntentFlags = Build.VERSION.SdkInt >= BuildVersionCodes.S
+            ? PendingIntentFlags.NoCreate | PendingIntentFlags.Immutable
+            : PendingIntentFlags.NoCreate;
+
+        PendingIntent? pendingIntent = PendingIntent.GetBroadcast(
+            Platform.AppContext,
+            id,
+            intent,
+            pendingIntentFlags);
+
+        if (pendingIntent is null)
+        {
+            return;
+        }
+
+        AlarmManager? alarmManager =
+            Platform.AppContext.GetSystemService(Context.AlarmService) as AlarmManager;
+
+        alarmManager?.Cancel(pendingIntent);
+        pendingIntent.Cancel();
     }
 
     public void ReceiveNotification(string title, string message)
@@ -80,46 +105,58 @@ public class NotificationManagerService : INotificationManagerService
         NotificationReceived?.Invoke(this, EventArgs.Empty);
     }
 
-    public void Show(string title, string message)
+    public void Show(int id, string title, string message)
     {
         if (!_channelInitialized)
+        {
             CreateNotificationChannel();
+        }
 
         _compatManager ??= NotificationManagerCompat.From(Platform.AppContext);
 
         Intent intent = new Intent(Platform.AppContext, typeof(MainActivity));
+        intent.PutExtra(NotificationIdKey, id);
         intent.PutExtra(TitleKey, title);
         intent.PutExtra(MessageKey, message);
         intent.SetFlags(ActivityFlags.SingleTop | ActivityFlags.ClearTop);
 
-        var pendingIntentFlags = Build.VERSION.SdkInt >= BuildVersionCodes.S
+        PendingIntentFlags pendingIntentFlags = Build.VERSION.SdkInt >= BuildVersionCodes.S
             ? PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable
             : PendingIntentFlags.UpdateCurrent;
 
         PendingIntent? pendingIntent = PendingIntent.GetActivity(
             Platform.AppContext,
-            _pendingIntentId++,
+            id,
             intent,
             pendingIntentFlags);
 
         if (pendingIntent is null || _compatManager is null)
+        {
             return;
+        }
 
-        var builder = new NotificationCompat.Builder(Platform.AppContext, ChannelId)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                Platform.AppContext,
+                ChannelId)
             .SetContentIntent(pendingIntent)
             .SetContentTitle(title)
             .SetContentText(message)
-            .SetSmallIcon(global::AcademicPlanner.Resource.Mipmap.appicon)
+            .SetSmallIcon(Resource.Mipmap.appicon)
             .SetAutoCancel(true);
 
-        _compatManager.Notify(_messageId++, builder.Build());
+        _compatManager.Notify(id, builder.Build());
     }
 
     private void CreateNotificationChannel()
     {
+        if (_channelInitialized)
+        {
+            return;
+        }
+
         if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
         {
-            var channel = new NotificationChannel(
+            NotificationChannel channel = new NotificationChannel(
                 ChannelId,
                 ChannelName,
                 NotificationImportance.Default)
@@ -127,8 +164,8 @@ public class NotificationManagerService : INotificationManagerService
                 Description = ChannelDescription
             };
 
-            var manager =
-                (NotificationManager?)Platform.AppContext.GetSystemService(Context.NotificationService);
+            NotificationManager? manager =
+                Platform.AppContext.GetSystemService(Context.NotificationService) as NotificationManager;
 
             manager?.CreateNotificationChannel(channel);
         }
@@ -139,8 +176,9 @@ public class NotificationManagerService : INotificationManagerService
     private static long GetNotifyTime(DateTime notifyTime)
     {
         DateTime utcTime = TimeZoneInfo.ConvertTimeToUtc(notifyTime);
-        double epochDiff = (new DateTime(1970, 1, 1) - DateTime.MinValue).TotalSeconds;
-        long utcAlarmTime = utcTime.AddSeconds(-epochDiff).Ticks / 10000;
-        return utcAlarmTime;
+        DateTime epochStart = new DateTime(1970, 1, 1);
+        TimeSpan timeSinceEpoch = utcTime - epochStart;
+
+        return (long)timeSinceEpoch.TotalMilliseconds;
     }
 }

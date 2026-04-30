@@ -102,6 +102,27 @@ public partial class AssessmentEditPage : ContentPage
             return;
         }
 
+        var course = await _database.GetCourseAsync(_courseId);
+
+        if (course is null)
+        {
+            await DisplayAlert("Validation Error", "The selected course could not be found.", "OK");
+            return;
+        }
+
+        if (!ValidationHelper.DateRangeIsWithinParent(
+                StartDatePicker.Date,
+                EndDatePicker.Date,
+                course.StartDate,
+                course.EndDate))
+        {
+            await DisplayAlert(
+                "Validation Error",
+                "Assessment dates must fall within the selected course.",
+                "OK");
+            return;
+        }
+
         var existingAssessments = await _database.GetAssessmentsByCourseAsync(_courseId);
 
         if (_assessmentId == 0 && !ValidationHelper.CanAddAnotherAssessment(existingAssessments))

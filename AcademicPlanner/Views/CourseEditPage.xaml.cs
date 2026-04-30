@@ -119,6 +119,11 @@ public partial class CourseEditPage : ContentPage
             await DisplayAlert("Validation Error", "Instructor phone is required.", "OK");
             return;
         }
+        if (!ValidationHelper.IsValidPhone(instructorPhone))
+        {
+            await DisplayAlert("Validation Error", "Enter a valid instructor phone number.", "OK");
+            return;
+        }
 
         if (!ValidationHelper.IsRequired(instructorEmail))
         {
@@ -129,6 +134,27 @@ public partial class CourseEditPage : ContentPage
         if (!ValidationHelper.IsValidEmail(instructorEmail))
         {
             await DisplayAlert("Validation Error", "Enter a valid instructor email.", "OK");
+            return;
+        }
+
+        var term = await _database.GetTermAsync(_termId);
+
+        if (term is null)
+        {
+            await DisplayAlert("Validation Error", "The selected term could not be found.", "OK");
+            return;
+        }
+
+        if (!ValidationHelper.DateRangeIsWithinParent(
+                StartDatePicker.Date,
+                EndDatePicker.Date,
+                term.StartDate,
+                term.EndDate))
+        {
+            await DisplayAlert(
+                "Validation Error",
+                "Course dates must fall within the selected term.",
+                "OK");
             return;
         }
 

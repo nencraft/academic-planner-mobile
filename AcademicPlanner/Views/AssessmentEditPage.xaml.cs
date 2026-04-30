@@ -10,7 +10,7 @@ namespace AcademicPlanner.Views;
 public partial class AssessmentEditPage : ContentPage
 {
     private readonly AcademicPlannerDatabase _database;
-    private readonly INotificationManagerService _notificationService;
+    private readonly AcademicNotificationService _academicNotificationService;
     private bool _optionsLoaded;
 
     private int _courseId;
@@ -41,17 +41,11 @@ public partial class AssessmentEditPage : ContentPage
 
     public AssessmentEditPage(
         AcademicPlannerDatabase database,
-        INotificationManagerService notificationService)
+        AcademicNotificationService academicNotificationService)
     {
         InitializeComponent();
         _database = database;
-        _notificationService = notificationService;
-
-        StartDatePicker.Date = DateTime.Today;
-        EndDatePicker.Date = DateTime.Today.AddMonths(1);
-
-        AssessmentTypePicker.SelectedIndex = -1;
-        AlertSettingPicker.SelectedIndex = 0; 
+        _academicNotificationService = academicNotificationService;
     }
 
     private async Task LoadAssessmentAsync()
@@ -155,32 +149,7 @@ public partial class AssessmentEditPage : ContentPage
         };
 
         await _database.SaveAssessmentAsync(assessment);
-
-#if ANDROID
-        if (assessment.AlertSetting != "None")
-        {
-            var permission = await Permissions.RequestAsync<AcademicPlanner.Platforms.Android.NotificationPermission>();
-            if (permission == PermissionStatus.Granted)
-            {
-                if (assessment.AlertSetting == "Start" || assessment.AlertSetting == "Start and End")
-                {
-                    _notificationService.SendNotification(
-                        "Assessment Start Reminder",
-                        $"{assessment.Title} starts today.",
-                        assessment.StartDate.Date.AddHours(9));
-                }
-
-                if (assessment.AlertSetting == "End" || assessment.AlertSetting == "Start and End")
-                {
-                    _notificationService.SendNotification(
-                        "Assessment Due Reminder",
-                        $"{assessment.Title} is due today.",
-                        assessment.EndDate.Date.AddHours(9));
-                }
-            }
-        }
-#endif
-
+        await _academicNotificationService.ApplyAssessmentNotificationsAsync(assessment);
         await Shell.Current.GoToAsync("..");
     }
 
@@ -202,6 +171,7 @@ public partial class AssessmentEditPage : ContentPage
         if (!confirm)
             return;
 
+        await _academicNotificationService.CancelAssessmentNotificationsAsync(assessment.Id);
         await _database.DeleteAssessmentAsync(assessment);
         await Shell.Current.GoToAsync("..");
     }

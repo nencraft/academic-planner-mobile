@@ -1,5 +1,6 @@
 using AcademicPlanner.Data;
 using AcademicPlanner.Models;
+using AcademicPlanner.Services;
 
 namespace AcademicPlanner.Views;
 
@@ -7,6 +8,7 @@ namespace AcademicPlanner.Views;
 public partial class TermOverviewPage : ContentPage
 {
     private readonly AcademicPlannerDatabase _database;
+    private readonly AcademicNotificationService _academicNotificationService;
     private int _termId;
     private Term? _currentTerm;
 
@@ -22,10 +24,13 @@ public partial class TermOverviewPage : ContentPage
         }
     }
 
-    public TermOverviewPage(AcademicPlannerDatabase database)
+    public TermOverviewPage(
+        AcademicPlannerDatabase database,
+        AcademicNotificationService academicNotificationService)
     {
         InitializeComponent();
         _database = database;
+        _academicNotificationService = academicNotificationService;
     }
 
     protected override async void OnAppearing()
@@ -79,6 +84,7 @@ public partial class TermOverviewPage : ContentPage
         if (!confirm)
             return;
 
+        await _academicNotificationService.CancelTermNotificationsAsync(_termId);
         await _database.DeleteTermCascadeAsync(_termId);
         await Shell.Current.GoToAsync("..");
     }

@@ -31,6 +31,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<PlannerItemService>();
         builder.Services.AddSingleton<SearchService>();
         builder.Services.AddSingleton<ReportService>();
+        builder.Services.AddSingleton<AcademicNotificationService>();
 
         builder.Services.AddTransient<TermsPage>();
         builder.Services.AddTransient<TermEditPage>();

@@ -8,9 +8,11 @@ namespace AcademicPlanner.Services;
 
 public interface INotificationManagerService
 {
-    event EventHandler NotificationReceived;
+    event EventHandler? NotificationReceived;
 
-    void SendNotification(string title, string message, DateTime? notifyTime = null);
+    void SendNotification(int id, string title, string message, DateTime? notifyTime = null);
+
+    void CancelNotification(int id);
 
     void ReceiveNotification(string title, string message);
 }

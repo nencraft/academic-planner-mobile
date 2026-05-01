@@ -25,17 +25,12 @@ public class NotificationManagerService : INotificationManagerService
 
     public NotificationManagerService()
     {
-        CreateNotificationChannel();
-        _compatManager = NotificationManagerCompat.From(Platform.AppContext);
         Instance = this;
     }
 
     public void SendNotification(int id, string title, string message, DateTime? notifyTime = null)
     {
-        if (!_channelInitialized)
-        {
-            CreateNotificationChannel();
-        }
+        EnsureInitialized();
 
         if (notifyTime is null)
         {
@@ -73,7 +68,7 @@ public class NotificationManagerService : INotificationManagerService
 
     public void CancelNotification(int id)
     {
-        _compatManager ??= NotificationManagerCompat.From(Platform.AppContext);
+        EnsureInitialized();
         _compatManager.Cancel(id);
 
         Intent intent = new Intent(Platform.AppContext, typeof(AlarmHandler));
@@ -107,12 +102,7 @@ public class NotificationManagerService : INotificationManagerService
 
     public void Show(int id, string title, string message)
     {
-        if (!_channelInitialized)
-        {
-            CreateNotificationChannel();
-        }
-
-        _compatManager ??= NotificationManagerCompat.From(Platform.AppContext);
+        EnsureInitialized();
 
         Intent intent = new Intent(Platform.AppContext, typeof(MainActivity));
         intent.PutExtra(NotificationIdKey, id);
@@ -180,5 +170,15 @@ public class NotificationManagerService : INotificationManagerService
         TimeSpan timeSinceEpoch = utcTime - epochStart;
 
         return (long)timeSinceEpoch.TotalMilliseconds;
+    }
+
+    private void EnsureInitialized()
+    {
+        if (!_channelInitialized)
+        {
+            CreateNotificationChannel();
+        }
+
+        _compatManager ??= NotificationManagerCompat.From(Platform.AppContext);
     }
 }

@@ -31,45 +31,16 @@ The app uses local SQLite storage, account authentication, password hashing, not
 
 ## Screenshots
 
-### Account Setup
-
-![Account setup](docs/assets/screenshots/account-setup.png)
-
 ### Terms Page
 
-![Terms page](docs/assets/screenshots/term-page.png)
-
-### Term Overview
-
-![Term overview](docs/assets/screenshots/term-overview.png)
-
-### Course Editor
-
-![Course editor](docs/assets/screenshots/course-edit.png)
+<img src="docs/assets/screenshots/term-page.png" alt="Terms page" width="300">
 
 ### Course Overview
 
-![Course overview](docs/assets/screenshots/course-overview.png)
-
-### Assessment Editor
-
-![Assessment editor](docs/assets/screenshots/assessment-edit.png)
-
-### Search
-
-![Search page](docs/assets/screenshots/search-page.png)
+<img src="docs/assets/screenshots/course-overview.png" alt="Course overview" width="300">
 
 ### Reports
-
-![Reports page](docs/assets/screenshots/reports-page.png)
-
-### Settings
-
-![Settings page](docs/assets/screenshots/settings-page.png)
-
-### Test Results
-
-![Test results](docs/assets/screenshots/test-results.png)
+<img src="docs/assets/screenshots/reports-page.png" alt="Reports page" width="300">
 
 ## How to Run
 

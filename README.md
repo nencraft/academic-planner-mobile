@@ -206,8 +206,6 @@ The app enforces several academic planning rules:
 
 ## Recent Improvements
 
-- Removed committed Android signing key
-- Cleaned repository ignore rules
 - Added centralized planner item generation
 - Improved academic date validation
 - Added phone validation
@@ -217,13 +215,3 @@ The app enforces several academic planning rules:
 - Improved Reports page summary and export feedback
 - Added unit tests for core non-UI logic
 - Updated project documentation and screenshots
-
-## Future Improvements
-
-- Add recurring reminders
-- Add calendar export
-- Add dark mode support
-- Add cloud backup or sync
-- Add filtering and sorting to reports
-- Add more detailed assessment progress tracking
-- Move shared business logic into a dedicated core library

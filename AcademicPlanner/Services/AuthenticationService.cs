@@ -38,6 +38,11 @@ public class AuthenticationService
         if (string.IsNullOrWhiteSpace(password))
             return (false, "Password is required.");
 
+        string? passwordValidationMessage = PasswordValidationService.ValidatePassword(password);
+
+        if (passwordValidationMessage is not null)
+            return (false, passwordValidationMessage);
+
         var existingUser = await _database.GetUserByUsernameAsync(username);
         if (existingUser is not null)
             return (false, "That username already exists.");
@@ -149,5 +154,10 @@ public class AuthenticationService
     {
         var user = await _database.GetUserAsync();
         return user?.IsPinEnabled ?? false;
+    }
+
+    public static string? ValidatePassword(string password)
+    {
+        return PasswordValidationService.ValidatePassword(password);
     }
 }

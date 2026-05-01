@@ -75,10 +75,26 @@
     x:Name="TimestampLabel"
     FontSize="14"
     TextColor="Gray" />
+                
+                <Label
+    x:Name="SummaryLabel"
+    FontAttributes="Bold"
+    FontSize="14"
+    TextColor="Gray" />
 
                 <Button
+    x:Name="ExportButton"
     Text="Export Report"
     Clicked="OnExportReportClicked" />
+
+                <Label
+    x:Name="EmptyReportLabel"
+    FontAttributes="Bold"
+    FontSize="18"
+    HorizontalTextAlignment="Center"
+    IsVisible="False"
+    Text="No current or upcoming academic activity found."
+    TextColor="Gray" />
 
                 <CollectionView x:Name="ReportCollectionView" SelectionMode="None">
 
@@ -158,7 +174,7 @@
                                             Text="Status:" />
 
                                         <Label
-                                            Grid.Row="5"
+                                            Grid.Row="4"
                                             Grid.Column="1"
                                             Text="{Binding Status}" />
                                     </Grid>

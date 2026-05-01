@@ -15,3 +15,7 @@
 # OS junk
 .DS_Store
 Thumbs.db
+
+# Android signing keys
+*.keystore
+*.jks

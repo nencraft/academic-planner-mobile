@@ -1,7 +1,8 @@
 using AcademicPlanner.Data;
 using AcademicPlanner.Models;
-using Microsoft.Maui.ApplicationModel.DataTransfer;
+using AcademicPlanner.Services;
 using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.ApplicationModel.DataTransfer;
 
 namespace AcademicPlanner.Views;
 
@@ -9,6 +10,7 @@ namespace AcademicPlanner.Views;
 public partial class CourseOverviewPage : ContentPage
 {
     private readonly AcademicPlannerDatabase _database;
+    private readonly AcademicNotificationService _academicNotificationService;
     private int _courseId;
     private Course? _course;
 
@@ -24,11 +26,13 @@ public partial class CourseOverviewPage : ContentPage
             }
         }
     }
-
-    public CourseOverviewPage(AcademicPlannerDatabase database)
+    public CourseOverviewPage(
+        AcademicPlannerDatabase database,
+        AcademicNotificationService academicNotificationService)
     {
         InitializeComponent();
         _database = database;
+        _academicNotificationService = academicNotificationService;
     }
 
     protected override async void OnAppearing()
@@ -87,6 +91,7 @@ public partial class CourseOverviewPage : ContentPage
         if (!confirm)
             return;
 
+        await _academicNotificationService.CancelCourseNotificationsAsync(_courseId);
         await _database.DeleteCourseCascadeAsync(_courseId);
         await Shell.Current.GoToAsync("..");
     }

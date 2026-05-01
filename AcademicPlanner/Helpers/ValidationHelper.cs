@@ -20,6 +20,16 @@ public static class ValidationHelper
         return start <= end;
     }
 
+    public static bool DateRangeIsWithinParent(
+        DateTime childStart,
+        DateTime childEnd,
+        DateTime parentStart,
+        DateTime parentEnd)
+    {
+        return childStart.Date >= parentStart.Date &&
+               childEnd.Date <= parentEnd.Date;
+    }
+
     public static bool IsValidEmail(string? email)
     {
         if (string.IsNullOrWhiteSpace(email))
@@ -30,6 +40,19 @@ public static class ValidationHelper
             @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
             RegexOptions.IgnoreCase);
     }
+
+    public static bool IsValidPhone(string? phone)
+    {
+        if (string.IsNullOrWhiteSpace(phone))
+            return false;
+
+        string cleaned = phone.Trim();
+
+        return Regex.IsMatch(
+            cleaned,
+            @"^[0-9\-\+\(\)\s\.]{7,20}$");
+    }
+
     public static bool CanAddAnotherAssessment(List<Assessment> assessments)
     {
         return assessments.Count < 2;
@@ -40,8 +63,8 @@ public static class ValidationHelper
         string type,
         int currentAssessmentId = 0)
     {
-        return assessments.Any(a =>
-            a.Type.Equals(type, StringComparison.OrdinalIgnoreCase) &&
-            a.Id != currentAssessmentId);
+        return assessments.Any(assessment =>
+            assessment.Type.Equals(type, StringComparison.OrdinalIgnoreCase) &&
+            assessment.Id != currentAssessmentId);
     }
 }

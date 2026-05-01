@@ -10,7 +10,7 @@ namespace AcademicPlanner.Views;
 public partial class CourseEditPage : ContentPage
 {
     private readonly AcademicPlannerDatabase _database;
-    private readonly INotificationManagerService _notificationService;
+    private readonly AcademicNotificationService _academicNotificationService;
     private bool _optionsLoaded;
 
     private int _termId;
@@ -39,18 +39,15 @@ public partial class CourseEditPage : ContentPage
         }
     }
 
-    public CourseEditPage(AcademicPlannerDatabase database, INotificationManagerService notificationService)
+    public CourseEditPage(
+        AcademicPlannerDatabase database, 
+        AcademicNotificationService academicNotificationService)
     {
         InitializeComponent();
         _database = database;
-        _notificationService = notificationService;
-
-        StartDatePicker.Date = DateTime.Today;
-        EndDatePicker.Date = DateTime.Today.AddMonths(1);
-
-        StatusPicker.SelectedIndex = -1;
-        AlertSettingPicker.SelectedIndex = 0;
+        _academicNotificationService = academicNotificationService;
     }
+
 
     private async Task LoadCourseAsync()
     {
@@ -90,6 +87,8 @@ public partial class CourseEditPage : ContentPage
         string status = StatusPicker.SelectedItem?.ToString() ?? string.Empty;
         string alertSetting = AlertSettingPicker.SelectedItem?.ToString() ?? "None";
 
+
+
         if (!ValidationHelper.IsRequired(title))
         {
             await DisplayAlert("Validation Error", "Course title is required.", "OK");
@@ -119,6 +118,11 @@ public partial class CourseEditPage : ContentPage
             await DisplayAlert("Validation Error", "Instructor phone is required.", "OK");
             return;
         }
+        if (!ValidationHelper.IsValidPhone(instructorPhone))
+        {
+            await DisplayAlert("Validation Error", "Enter a valid instructor phone number.", "OK");
+            return;
+        }
 
         if (!ValidationHelper.IsRequired(instructorEmail))
         {
@@ -129,6 +133,27 @@ public partial class CourseEditPage : ContentPage
         if (!ValidationHelper.IsValidEmail(instructorEmail))
         {
             await DisplayAlert("Validation Error", "Enter a valid instructor email.", "OK");
+            return;
+        }
+
+        var term = await _database.GetTermAsync(_termId);
+
+        if (term is null)
+        {
+            await DisplayAlert("Validation Error", "The selected term could not be found.", "OK");
+            return;
+        }
+
+        if (!ValidationHelper.DateRangeIsWithinParent(
+                StartDatePicker.Date,
+                EndDatePicker.Date,
+                term.StartDate,
+                term.EndDate))
+        {
+            await DisplayAlert(
+                "Validation Error",
+                "Course dates must fall within the selected term.",
+                "OK");
             return;
         }
 
@@ -147,36 +172,9 @@ public partial class CourseEditPage : ContentPage
             AlertSetting = alertSetting
         };
 
-        if (course.AlertSetting != "None")
-        {
-#if ANDROID
-            var permission = await Permissions.RequestAsync<AcademicPlanner.Platforms.Android.NotificationPermission>();
-            if (permission != PermissionStatus.Granted)
-            {
-                await DisplayAlert("Notifications", "Notification permission was not granted.", "OK");
-            }
-            else
-            {
-                if (course.AlertSetting == "Start" || course.AlertSetting == "Start and End")
-                {
-                    _notificationService.SendNotification(
-                        "Course Start Reminder",
-                        $"{course.Title} starts today.",
-                        course.StartDate.Date.AddHours(9));
-                }
-
-                if (course.AlertSetting == "End" || course.AlertSetting == "Start and End")
-                {
-                    _notificationService.SendNotification(
-                        "Course End Reminder",
-                        $"{course.Title} ends today.",
-                        course.EndDate.Date.AddHours(9));
-                }
-            }
-#endif
-        }
 
         await _database.SaveCourseAsync(course);
+        await _academicNotificationService.ApplyCourseNotificationsAsync(course);
         await Shell.Current.GoToAsync("..");
     }
 
